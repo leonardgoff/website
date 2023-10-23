@@ -1,0 +1,18 @@
+\frametitle{A typical slide}
+Here are some things I want to talk about:\\
+	\vspace{.5cm}
+	\begin{wideitemize}
+		\item Thing 1
+		\item Thing 2
+		\item Thing 3
+	\end{wideitemize}
+	\vspace{1cm}
+	Typical spacing:
+	 \begin{verbatim*}
+	text
+	\end{verbatim*}
+	\begin{itemize}
+		\item Thing 1
+		\item Thing 2
+		\item Thing 3
+	\end{itemize}

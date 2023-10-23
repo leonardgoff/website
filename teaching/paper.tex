@@ -1,0 +1,138 @@
+\documentclass{article}
+\usepackage{listings}
+\usepackage{bbm}
+\usepackage{pgfplots}
+\usepackage{color, colortbl}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{pifont}
+\usepackage{multirow}
+\newcommand{\xmark}{\ding{55}}
+\usepackage{amsmath}      
+\usepackage{amssymb}         
+\usepackage{cancel}
+\usepackage{dcolumn}
+\usepackage{amsthm}
+\usepackage[toc,page]{appendix}
+\usepackage[font=small,labelfont=bf, skip=0pt]{caption}
+\newcolumntype{H}{>{\setbox0=\hbox\bgroup}c<{\egroup}@{}}
+\usepackage{makecell}
+
+%you can link an external document called externalappendix.tex with the line below
+%\externaldocument[SA-]{externalappendix}
+
+\usepackage{amsthm} 
+\usepackage[toc,page]{appendix}
+\usepackage[font=small,labelfont=bf, skip=0pt]{caption}
+
+\usepackage[a4paper,margin=1in,footskip=0.25in]{geometry}
+\usepackage[authoryear,round]{natbib}
+\bibliographystyle{plainnat}
+
+\makeatletter
+\def\thmhead@plain#1#2#3{%
+	\thm@notefont{}% same as heading font
+	\thmname{#1}\thmnumber{\@ifnotempty{#1}{ }\@upn{#2}}%
+	\thmnote{ {\the\thm@notefont#3}}}
+\let\thmhead\thmhead@plain
+\itshape % body font
+\makeatother
+
+\newtheorem*{definition*}{Definition}
+\newtheorem*{assumption*}{Assumption}
+\newtheorem{assumption}{Assumption}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem{lemma}{Lemma}
+\newtheorem*{proposition*}{Proposition}
+\newtheorem{proposition}{Proposition}
+\newtheorem*{conjecture*}{Conjecture}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem{theorem}{Theorem}
+\newtheorem*{corollary*}{Corollary}
+\newtheorem*{corollary}{Corollary}
+
+\setcounter{MaxMatrixCols}{20}
+
+\graphicspath{ {images/} }
+
+\usepackage[many]{tcolorbox}
+\newsavebox{\fmbox}
+\newenvironment{fmpage}[1]
+{\begin{lrbox}{\fmbox}\begin{minipage}{#1}}
+	{\end{minipage}\end{lrbox}\fbox{\usebox{\fmbox}}}
+
+
+\linespread{1.25}
+
+\title{An Example Paper in \LaTeX}
+\author{Leonard Goff\thanks{I thank person A and person B for their invaluable support on this project, and people C-Z for helpful discussions.}}
+\date{Last updated: \today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Here's my abstract. It's very small.
+\end{abstract}
+
+\large
+
+%\tableofcontents
+
+\section{Introduction} \label{secintro}
+Since the dawn of civilization...
+
+I will show in Section \ref{seclit} that blah blah blah
+
+\section{Literature review} \label{seclit}
+
+Some related papers here are \cite{Wilson2025} (which is the same paper as \citealt{Wilson2025}--see that I avoided nested parenthesis here). However, these papers leave open the important question of XYZ.
+
+Here is a second paragraph.
+
+\section{Data}
+The primary data for this project are drawn from my anecdotal observations as a rider of the New York City subway.
+
+\section{Empirical strategy}
+My empirical strategy is based on the intuition that X, which I formalize with the following assumption
+\begin{assumption}[(existence of the universe)] \label{idassumption}
+	The universe exists.
+\end{assumption}
+\noindent We note that under Assumption \ref{idassumption}, we can make
+\begin{align}
+\gamma &= 3 \nonumber \\
+	&= 2+1 \nonumber \\
+	&= 1+1+1 \label{myeq}
+\end{align}
+\noindent This line is not indented. From Equation \ref{myeq} we can now motivate the final regression equation:
+$$ y_{it} = \mu_i + \lambda_t + \rho d_i+ x_{it}'\beta + u_{it}$$
+where under Assumption 1 we can interpret $\rho$ as the effect of $X$ on $Y$.\footnote{This is a GREAT footnote.}
+
+\section{Results}
+Table \ref{table1} reports the regression results.
+
+\begin{table}[!htbp] \centering 
+	\input{table1.tex}	
+	\caption{Here is a caption} \label{table1} 
+\end{table}
+
+
+\section{Conclusion} \label{secconclusion}
+Here's my conclusion.
+
+%References for things only mentioned in the supplemental appendix
+%\nocite{someotherpaper}
+
+
+\bibliography{biblio}
+
+\begin{appendices}
+
+	\section{First appendix} \label{appendix1}
+	
+	\section{Second appendix} \label{appendix2}
+
+\end{appendices}
+
+\end{document} 

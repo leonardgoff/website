@@ -6,10 +6,10 @@
 
 		<title>reveal.js</title>
 
-		<link rel="stylesheet" href="reveal/css/reset.css">
-		<link rel="stylesheet" href="reveal/css/reveal.css">
-		<link rel="stylesheet" href="reveal/css/theme/black.css">
-		<link rel="stylesheet" href="reveal/metropolis.css">
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+		<link rel="stylesheet" href="metropolis.css">
 
 		<style>
 		li{
@@ -33,7 +33,7 @@
 		</style>
 
 		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="reveal/lib/css/monokai.css">
+		<link rel="stylesheet" href="lib/css/monokai.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
 		<!-- Printing and PDF exports -->
@@ -41,7 +41,7 @@
 			var link = document.createElement( 'link' );
 			link.rel = 'stylesheet';
 			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal/css/print/pdf.css' : 'reveal/css/print/paper.css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
 			document.getElementsByTagName( 'head' )[0].appendChild( link );
 			Reveal.configure({ pdfSeparateFragments: false });
 		</script>
@@ -1200,7 +1200,7 @@
 			</section>
 		</section>		
 		
-		<script src="reveal/js/reveal.js"></script>
+		<script src="js/reveal.js"></script>
 
 		<script>
 			// More info about config & dependencies:
@@ -1222,14 +1222,14 @@
 			  maxScale: 2.0,
 				history: true,
 				dependencies: [
-					{ src: 'reveal/plugin/anything/anything.js' },
-					{ src: 'reveal/plugin/mathsvg/math.js' },
-					{ src: 'reveal/plugin/chalkboard/chalkboard.js' },
-					{ src: 'reveal/plugin/mouse-pointer/mouse-pointer.js', async: true }, 
-					{ src: 'reveal/plugin/markdown/marked.js' },
-					{ src: 'reveal/plugin/markdown/markdown.js' },
-					{ src: 'reveal/plugin/notes/notes.js', async: true },
-					{ src: 'reveal/plugin/highlight/highlight.js', async: true }
+					{ src: 'plugin/anything/anything.js' },
+					{ src: 'plugin/mathsvg/math.js' },
+					{ src: 'plugin/chalkboard/chalkboard.js' },
+					{ src: 'plugin/mouse-pointer/mouse-pointer.js', async: true }, 
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
 				],
 				keyboard: {
 						67: function() { RevealChalkboard.toggleNotesCanvas() },	// toggle notes canvas when 'c' is pressed

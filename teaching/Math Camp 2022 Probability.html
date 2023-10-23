@@ -1,0 +1,1261 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="reveal/css/reset.css">
+		<link rel="stylesheet" href="reveal/css/reveal.css">
+		<link rel="stylesheet" href="reveal/css/theme/black.css">
+		<link rel="stylesheet" href="reveal/metropolis.css">
+
+		<style>
+		li{
+		  margin: 15px 0;
+		}
+		.fragment.current-visible.visible:not(.current-fragment) {
+			display: none;
+			height:0px;
+			line-height: 0px;
+			font-size: 0px;
+		}
+		a:link {
+		  text-decoration: underline;
+		}
+		@media print {
+			.slide-background {
+				background-color: #ffffff !important;
+				-webkit-print-color-adjust: exact; 
+			}
+		}
+		</style>
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="reveal/lib/css/monokai.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal/css/print/pdf.css' : 'reveal/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+			Reveal.configure({ pdfSeparateFragments: false });
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+			
+		 <section>
+            <center>
+			<b><h1>Probability and Statistics for Economics</b>
+			<h2><br><br>UCalgary Math Camp 2023, Instructor: Len Goff
+            <h2><br><br>Section 1: Probability
+			</center>
+        </section>
+		
+		<section data-markdown data-transition="none">
+		  <textarea data-template>
+			## What is "econometrics"?
+			---
+			<img src = "images/econometrics0.png" class="plain" align="center" width=90%>
+		  </textarea>
+		</section>
+		
+		<section data-markdown data-transition="none">
+		  <textarea data-template>
+			## What is "econometrics"?
+			---
+			<img src = "images/econometrics1.png" class="plain" align="center" width=90%>
+		  </textarea>
+		</section>
+		
+		<section data-markdown data-transition="none">
+		  <textarea data-template>
+			## What is "econometrics"?
+			---
+			<img src = "images/econometrics2.png" class="plain" align="center" width=90%>
+		  </textarea>
+		</section>
+		
+		<section data-markdown data-transition="none">
+		  <textarea data-template>
+			## What is "econometrics"?
+			---
+			<img src = "images/econometrics3.png" class="plain" align="center" width=90%>
+		  </textarea>
+		</section>
+		
+		<section data-markdown data-transition="none">
+		  <textarea data-template>
+			## What is "econometrics"?
+			---
+			<img src = "images/econometrics4.png" class="plain" align="center" width=90%>
+		  </textarea>
+		</section>
+		
+		<section data-markdown data-transition="none">
+		  <textarea data-template>
+			## Today
+			---
+			- Reference for today's material: "Statistics for Econometrics" notes on my website
+				- Chapters 1 and 2 for content on probability
+				- Chapter 3.3 and 4 for the law of large numbers and central limit theorem
+			- For a real textbook: 
+				- Hansen, *Probability and Statistics for Economists*: https://www.ssc.wisc.edu/~bhansen/probability/
+			- Other useful references:
+				- Casella \& Berger, *Statistical Inference*
+				- Hansen, *Econometrics*: https://www.ssc.wisc.edu/~bhansen/econometrics/
+		  </textarea>
+		</section>
+		
+		
+        <section>
+            <h1>Section 1: Probability & random variables
+        </section>
+		
+		<section data-markdown data-transition="none">
+		  <textarea data-template>
+			## Introduction
+			---
+			Economics is about people, and facts--so we need a language to discuss facts about *groups* of people.
+			
+			**Example:** what is the average annual household income in the United States? How does it compare to that of Mexico?
+						
+			**Example:** how likely is it that a child born in Alberta in 2003 is in college today? <br><br>			
+			
+			The mathematical notion of <span style="color:purple">probability</span> allows us to talk about these things.
+			
+			<span style="color:orange">Statistics</span> applies probability theory to analyze data. Helps us answer questions like: how good is our data at determining the desired fact?
+		  </textarea>
+		</section>
+		
+		<section>
+			<section data-markdown data-transition="none">
+			 <textarea data-template>
+			## Outline of this section
+			
+			- Probability
+			- Random variables
+			- Expectation
+			- Conditional probability and expectation
+			</textarea>
+			</section>
+		</section>
+				
+		<section data-markdown data-transition="none">
+		  <textarea data-template>
+			## What is probability?
+			---
+			It's easiest to start with a mathematical definition: probability is a function that associates a <span style="color:purple">number</span> to each of a set of <span style="color:green">events.</span><br><br><br>
+			**Example:** rolling a six-sided die<br><center><iframe src="https://giphy.com/embed/I38qmkMXsMOFKsuer9" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/OtOarts-collaboration-oto-otoart-I38qmkMXsMOFKsuer9">via GIPHY</a></p>
+		  </textarea>
+		</section>
+		
+		<section data-markdown data-transition="none">
+		  <textarea data-template>
+			## What is an event?
+			---
+			Start with a set of possible <span style="color:blue">outcomes</span>
+			<center><img src="images/diesides.png" class="plain" align="center" width="45%"></center>
+			
+			<span style="color:green">Events</span> are just sets of outcomes, for example:
+			<div class="fragment" data-fragment-index="1">
+			<span>&#8226;</span> the event that I roll a three $\quad$
+				<img style="vertical-align:middle" src="images/diesides3.png" class="plain" width="40%">
+			</div>
+			<div class="fragment" data-fragment-index="2">
+			<span>&#8226;</span> the event that I roll an even number $\quad$
+				<img style="vertical-align:middle" src="images/diesideseven.png" class="plain" width="40%">
+			</div>
+			<div class="fragment current-visible" data-fragment-index="3">
+			<span>&#8226;</span> the event that I roll <i>any</i> number $\quad$
+				<img style="vertical-align:middle" src="images/diesidesall.png" class="plain" width="40%">
+			</div>
+			
+			</textarea>
+		</section>
+		
+		<section data-markdown data-transition="none">
+		  <textarea data-template>
+			## Enumerating all of the possible events
+			---
+			Begin with a set <span style="color:blue">$\Omega$</span> of mutually-exclusive <span style="color:blue">outcomes</span>:
+			<center><img src="images/diesides.png" class="plain" align="center"></center>
+			$\color{blue}{\Omega} = \{1,2,3,4,5,6\}$
+			
+			An **event** <span style="color:green">$A$</span> is any subset of $\color{blue}\Omega$, e.g.
+			* rolling a three: $\color{green}{A} = \\{3\\}$
+			* rolling an even number: $\color{green}{A} = \\{2,4,6\\}$
+			* rolling any number: $\color{green}{A} = \\{1,2,3,4,5,6\\} = \color{blue}{\Omega}$<br>		
+			How many distinct events are there for this sample space?<span class="fragment" data-fragment-index="2" style="color:red">$\quad 2^6$</span>
+		 	</textarea>
+		</section>
+		
+		<section data-markdown data-transition="none">
+		  <textarea data-template>
+			## Associating probabilites with events: discrete case
+			---
+			When rolling a so-called "fair-die", each outcome $\omega \in \color{blue}{\Omega}$ has an equal probability: $P(\omega) = \color{orange}{1/6}$. To get the probability of an event $\color{green}{A}$, simply add this for each $\omega \in \color{green}{A}$.
+			<center>
+			<div>
+			$\color{green}{A}$=
+			<img style="vertical-align:middle" src="images/diesides3.png" class="plain" width="40%">
+			<span class="fragment" data-fragment-index="1">$,\quad P(\color{green}{A})= \color{orange}{1/6}*1 = 1/6 $</span>
+			</div>
+
+			<div class="fragment" data-fragment-index="2">
+			$\color{green}{A}$=
+			<img style="vertical-align:middle" src="images/diesideseven.png" class="plain" width="40%">
+			<span class="fragment" data-fragment-index="3">$,\quad P(\color{green}{A})= \color{orange}{1/6}*3 = 1/2$</span>
+			</div>
+			
+			<div class="fragment" data-fragment-index="4">
+			$\color{green}{A}$=
+			<img style="vertical-align:middle" src="images/diesidesall.png" class="plain" width="40%">
+			<span class="fragment" data-fragment-index="5">$,\quad P(\color{green}{A})= \color{orange}{1/6}*6 = 1 \hspace{.6cm}$</span>
+			</div>
+			
+			</center>
+		 	</textarea>
+		</section>
+		
+		<section data-markdown data-transition="none">
+		  <textarea data-template>
+			## Associating probabilites with events: continuous case
+			- Now imagine an outcome space <span style="color:blue">$\Omega$</span> that consists of any real number between 0 and 1
+			
+			<center><img style="vertical-align:middle" src="images/unitinterval.png" class="plain" width="30%"></center>
+			
+			- e.g. throwing a dart at a 1D target
+			- Suppose we want to construct a probability function $P$ that puts equal probability on each such number in $[0,1]$
+			- Under such a distribution, what is the probability associated with a *single* point, e.g. $P(\\{0.3\\})$? <span class="fragment" data-fragment-index="2" style="color:red">$\quad 0!$</span>
+			<br><br><div class="fragment" data-fragment-index="3" style="font-size:0.9em;color:red"><center>But now we have a puzzle: if $P(\\{x\\}) = 0$ for each $x \in [0,1]$, how can we have $P([0,1]) = 1$?</center></div>
+			<br><div class="fragment" data-fragment-index="3" style="font-size:0.9em;color:black"><center>A solution comes from the notion of a *probability space*.</center></div>
+
+			</textarea>
+		</section>
+		
+	<section> 
+		<section data-markdown data-transition="none">
+ 		 <textarea data-template>
+			## Associating probabilites with events: Kolmogorov's axioms
+			<br>**Definition:** A **probability space** is a triple $(\color{blue}{\Omega}, \color{gray}{F}, \color{orange}{P})$ where
+			<h4>
+			
+			- $\color{blue}{\Omega}$ is the "sample space" (a.k.a. "outcome space", it's set of possible outcomes)
+			- $\color{gray}{F}$ is collection of events (subsets of $\color{blue}{\Omega}$) with the structure of a $\sigma$*-algebra* (next slide), and
+			- $\color{orange}{P}$ is a function from $\color{gray}{F}$ to the real numbers
+			
+			<h3>where $\color{orange}{P}$ is such that:<h4>
+			
+			- For any $\color{green}{A} \in \color{gray}{F}, \quad \color{orange}{P}(\color{green}{A}) \in \mathbb{R} \textrm{ and } \color{orange}{P}(\color{green}{A}) \ge 0$
+			- $\color{orange}{P}(\color{blue}{\Omega}) = 1$
+			- For any *countable* set of disjoint sets $\color{green}{A_1, A_2}, \dots \color{green}{A_{\infty}}$ where $\color{green}{A_i} \in \color{gray}{F}$:
+			
+			$$\color{orange}{P}\left(\color{green}{\bigcup_{i} A_i}\right) = \sum_i \color{orange}{P}(\color{green}{A_i})$$
+			(press down arrow for a review of set notation)
+			</textarea>
+		</section>
+		
+		<section data-markdown data-transition="none">
+			<textarea data-template>
+			## Sets
+			- A set is just a collection or group of items, e.g. the set of numbers 1, 2, and 5 is denoted: $\\{1,2,5\\}$. Order is not meaningful, so $\\{1,2,5\\} = \\{2,1,5\\}$, etc.
+				- The set $\\{\\}$ containing no elements is called the null set and is denoted $\emptyset$
+				- A set containing a single element, e.g. $\\{2\\}$ is called a *singleton*.
+			- The *union* of two sets $A$ and $B$ is denoted $A \cup B$, and is the set of all elements that belong in either $A$ or $B$, e.g. $\\{1,2,5\\} \cup \\{2,9\\} = \\{1,2,5,9\\}$
+			- The *intersection* of two sets $A$ and $B$ is denoted $A \cap B$, and is the set of all elements that belong to both $A$ and $B$, e.g. $\\{1,2,5\\} \cup \\{2,9\\} = \\{2\\}$
+				- Sets are called *disjoint* if they have no elements in common, i.e. $A \cap B = \emptyset$
+			- A set of sets (which I'll often refer to as a *collection* of sets} is a set in which each element is itself a set, e.g. $X = \\{ \\{1,2\\}, \\{3\\}, \emptyset \\}$
+			- We can extend the notions of union and intersection to collections of sets, for example $\bigcup_{x \in X} x = \\{1,2,3\\}$ and $\bigcap_{x \in X} x = \emptyset$
+			</textarea>
+			</section>
+
+			<section data-markdown data-transition="none">
+				<textarea data-template>
+				## More sets
+				- We say that $A \subseteq B$ when all elements in $B$ are also in $A$, e.g. $\\{1,2\\} \subseteq \\{1,2,3\\}$
+				- When $A$ is a singleton, we use the notation $A \in B$, e.g. $\\{3\\} \in \\{1,2,3\\}$
+				- When $A \subseteq B$ and $B$ contains at least one element that isn't in $A$, then we say $A \subset B$, e.g. $\\{1,2\\} \subseteq \\{1,2\\}$ but $\\{1,2\\} \subset \\{1,2,3\\}$
+				- When $A \subseteq B$, the *complement* of set $A$ in set $B$ is the set of all elements of $B$ that are not in $A$, e.g. if $A = \\{1,2\\}$ and $B=\\{1,2,3\\}$, then the complement of $A$ in $B$ is $\\{3\\}$
+					- Sometimes $B$ will simply be implicit, taken to be the so-called "universe" of possible elements under consideration. In this case, we may simply speak of the "complement of $A$" and denote it as $A^c$.
+				</textarea>
+				</section>
+			</section>
+	</section>
+		
+		<section data-markdown data-transition="none">
+		  <textarea data-template>
+			## What is a $\sigma$*-algebra*?
+			Recall, $\color{gray}{F}$ is a collection of the subsets of $\color{blue}{\Omega}$. But doesn't need to include all of them.<br><br>
+			The elements $\color{green}{A} \in \color{gray}{F}$ are referred to as *measurable sets* or "events". These are the sets to which we associate probabilities $\color{orange}{P}(\color{green}{A})$.
+
+			**Definition:** To be a $\mathbf{\sigma}$**-algebra**, $F$ must satisfy the following properties:
+			- $\color{blue}{\Omega}$ is contained in $\color{gray}{F}$
+			- If $\color{green}{A} \subseteq \color{blue}{\Omega}$ is in $\color{gray}{F}$, then so is the complement of $\color{green}{A}$ (its complement with respect to $\color{blue}{\Omega}$)
+			- If a countable collection $\color{green}{A_1}, \color{green}{A_2}, \dots$ are each in $\color{gray}{F}$, then $\bigcup_{i} \color{green}{A_i}$ is in $\color{gray}{F}$
+			
+			<div class="fragment current-visible" data-fragment-index="0">
+			<br><br> For example: the collection of the two sets $\Omega$ and $\emptyset$ is always a $\sigma$-algebra.
+			</div>
+			
+			<div class="fragment" data-fragment-index="1">
+			<br>More useful examples:
+			
+			- The powerset of $\color{blue}{\Omega}$ is always a $\sigma$*-algebra*, but it might be "too big" (see next slide).
+			- The standard "Borel" $\sigma$*-algebra* for $\color{blue}{\Omega} = [0,1]$ starts with all *open intervals* in $\color{blue}{\Omega}$.
+			</div>
+		</textarea>
+		</section>
+		
+		<section>
+			<section data-markdown data-transition="none">
+			  <textarea data-template>
+				## Why is the notion of a $\sigma-algebra$ necessary?
+				- Keeping some of the subsets of $\color{blue}{\Omega}$ out of $\color{gray}{F}$ avoids technical complications that can arise when $\color{blue}{\Omega}$ is uncountably infinite.
+				- For example, it can be proven that there exists no function *all* $\color{orange}{P}$ defined on all subsets $\color{green}{A} \subseteq [0,1]$ satisfying the the following properties:
+					- $\color{orange}{P}\left(\color{green}{[a,b]}\right) = \color{orange}{P}\left(\color{green}{[a,b)}\right) = \color{orange}{P}\left(\color{green}{(a,b]}\right) = \color{orange}{P}\left(\color{green}{(a,b)}\right)$
+					- Translational invariance: $\color{orange}{P}\left(\color{green}{A}\right) = \color{orange}{P}\left(\color{green}{A \bigoplus r}\right)$ for all $r$, where $\color{green}{A \bigoplus r}$ shifts each element of $\color{green}{A}$ by $r$ (wrapping around if needed)
+				- Implication: there are certain subsets $\color{green}{A} \subseteq [0,1]$ for which $\color{orange}{P}\left(\color{green}{A}\right)$ cannot be defined, if we want the uniform distribution to be a possibility.
+				- In practice, understanding these technicalities usually isn't important in econometrics. But, this is why we need the concept of a $\sigma$-algebra.
+				
+				(Press down arrow for sketch of proof)
+			  </textarea>
+			</section>
+			<section data-markdown data-transition="none">
+				<textarea data-template>
+				## Sketch of proof (see Rosenthal 2006 for details)
+				There exists a set $H$ with the following properties (*proof omitted*)
+				- For any rational numbers $r \ne r'$: $(H \bigoplus r) \cap (H \bigoplus r') = \emptyset$
+				- Shifts of $H$ by rational $x$ cover the unit interval: $\bigcup_{r \in \mathbb{Q}} (H \bigoplus r) = (0,1]$
+				
+				By Kolmogorov's axioms, then: $P((0,1]) = P\left(\bigcup_{r \in \mathbb{Q}} (H \bigoplus r)\right) = \bigcup_{r \in \mathbb{Q}} P\left(H \bigoplus r\right)$
+				
+				By the translational invariance property: $P\left(H \bigoplus r\right) = P(H)$ for all $r$
+				
+				We've also assumed that $P((0,1])=P([0,1])$ and we need $P([0,1])=1$. Thus: $ \bigcup_{r \in \mathbb{Q}} P\left(H\right) = 1$. There is no value of $P(H)$ that could make this true.
+				</textarea>
+				</section>
+			</section>
+		</section>
+				
+		<section data-markdown data-transition="none">
+		  <textarea data-template>
+			## Back to rolling dice
+			Suppose we have *two* fair dice? 
+			
+			Now our sample space is $\Omega = \\{(x,y): x,y \in \\{1,2, \dots 6\\}\\}$
+			
+			<table style="width:100%" borders=0>
+			  <tr>
+			   <center>First die</center>
+			  </tr>
+			  <tr>
+				<th style="border: none;"></th><th style="border: none;"></th><th>One</th><th>Two</th><th>Three</th><th>Four</th><th>Five</th><th>Six</th>
+			  </tr>
+			  <tr style="border: none;">
+				<td style="border: none;"> </td><td><b>One</b></td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+			  </tr>
+			  <tr style="border: none;">
+				<td style="border: none;"> </td><td><b>Two</b></td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+			  </tr>
+			  <tr style="border: none">
+				<td style="border:none">Second die</td><td><b>Three</b></td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+			  </tr>
+			  <tr style="border: none;">
+				<td style="border: none;"> </td><td><b>Four</b></td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+			  </tr>
+			  <tr style="border: none;">
+				<td style="border: none;"> </td><td><b>Five</b></td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+			  </tr>
+			  <tr style="border: none;">
+				<td style="border: none;"> </td><td><b>Six</b></td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+			  </tr>
+			</table><br>
+			For any $\omega \in \Omega$, $P(\omega) = 1/36$.<br><br>
+			<br>
+		</textarea>
+		</section>
+		
+		<section data-markdown data-transition="none">
+		  <textarea data-template>
+			## Back to rolling dice
+			Suppose we have *two* fair dice? 
+			
+			Now our sample space is $\Omega = \\{(x,y): x,y \in \\{1,2, \dots 6\\}\\}$
+			
+			<table style="width:100%" borders=0>
+			  <tr>
+			   <center>First die</center>
+			  </tr>
+			  <tr>
+				<th style="border: none;"></th><th style="border: none;"></th><th>One</th><th>Two</th><th>Three</th><th>Four</th><th>Five</th><th>Six</th>
+			  </tr>
+			  <tr style="border: none;">
+				<td style="border: none;"> </td><td><b>One</b></td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+			  </tr>
+			  <tr style="border: none;">
+				<td style="border: none;"> </td><td><b>Two</b></td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+			  </tr>
+			  <tr style="border: none">
+				<td style="border:none">Second die</td><td><b>Three</b></td><td style="color:red">1/36</td><td style="color:red">1/36</td><td style="color:red">1/36</td><td style="color:red">1/36</td><td style="color:red">1/36</td><td style="color:red">1/36</td>
+			  </tr>
+			  <tr style="border: none;">
+				<td style="border: none;"> </td><td><b>Four</b></td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+			  </tr>
+			  <tr style="border: none;">
+				<td style="border: none;"> </td><td><b>Five</b></td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+			  </tr>
+			  <tr style="border: none;">
+				<td style="border: none;"> </td><td><b>Six</b></td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+			  </tr>
+			</table><br>
+			For any $\omega \in \Omega$, $P(\omega) = 1/36$.<br><br>
+			<span style="color:red">What does the event that $y=3$ correspond to in the table?
+		</textarea>
+		</section>
+		
+		<section data-markdown data-transition="none">
+		  <textarea data-template>
+			## Back to rolling dice
+			Suppose we have *two* fair dice? 
+			
+			Now our sample space is $\Omega = \\{(x,y): x,y \in \\{1,2, \dots 6\\}\\}$
+			
+			<table style="width:100%" borders=0>
+			  <tr>
+			   <center>First die</center>
+			  </tr>
+			  <tr>
+				<th style="border: none;"></th><th style="border: none;"></th><th>One</th><th>Two</th><th>Three</th><th>Four</th><th>Five</th><th>Six</th>
+			  </tr>
+			  <tr style="border: none;">
+				<td style="border: none;"> </td><td><b>One</b></td><td>1/36</td><td style="color:red">1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+			  </tr>
+			  <tr style="border: none;">
+				<td style="border: none;"> </td><td><b>Two</b></td><td>1/36</td><td style="color:red">1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+			  </tr>
+			  <tr style="border: none">
+				<td style="border:none">Second die</td><td><b>Three</b></td><td>1/36</td><td style="color:red">1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+			  </tr>
+			  <tr style="border: none;">
+				<td style="border: none;"> </td><td><b>Four</b></td><td>1/36</td><td style="color:red">1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+			  </tr>
+			  <tr style="border: none;">
+				<td style="border: none;"> </td><td><b>Five</b></td><td>1/36</td><td style="color:red">1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+			  </tr>
+			  <tr style="border: none;">
+				<td style="border: none;"> </td><td><b>Six</b></td><td>1/36</td><td style="color:red">1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+			  </tr>
+			</table><br>
+			For any $\omega \in \Omega$, $P(\omega) = 1/36$.<br><br>
+			<span style="color:red">What does the event that $x=2$ correspond to in the table?
+		</textarea>
+		</section>
+		
+		<section data-markdown data-transition="none">
+		  <textarea data-template>
+			## Back to rolling dice
+			Suppose we have *two* fair dice? 
+			
+			Now our sample space is $\Omega = \\{(x,y): x,y \in \\{1,2, \dots 6\\}\\}$
+			
+			<table style="width:100%" borders=0>
+			  <tr>
+			   <center>First die</center>
+			  </tr>
+			  <tr>
+				<th style="border: none;"></th><th style="border: none;"></th><th>One</th><th>Two</th><th>Three</th><th>Four</th><th>Five</th><th>Six</th>
+			  </tr>
+			  <tr style="border: none;">
+				<td style="border: none;"> </td><td><b>One</b></td><td>1/36</td><td style="color:red">1/36</td><td>1/36</td><td style="color:red">1/36</td><td>1/36</td><td style="color:red">1/36</td>
+			  </tr>
+			  <tr style="border: none;">
+				<td style="border: none;"> </td><td><b>Two</b></td><td style="color:red">1/36</td><td>1/36</td><td style="color:red">1/36</td><td>1/36</td><td style="color:red">1/36</td><td>1/36</td>
+			  </tr>
+			  <tr style="border: none">
+				<td style="border:none">Second die</td><td><b>Three</b></td><td>1/36</td><td style="color:red">1/36</td><td>1/36</td><td style="color:red">1/36</td><td>1/36</td><td style="color:red">1/36</td>
+			  </tr>
+			  <tr style="border: none;">
+				<td style="border: none;"> </td><td><b>Four</b></td><td style="color:red">1/36</td><td>1/36</td><td style="color:red">1/36</td><td>1/36</td><td style="color:red">1/36</td><td>1/36</td>
+			  </tr>
+			  <tr style="border: none;">
+				<td style="border: none;"> </td><td><b>Five</b></td><td>1/36</td><td style="color:red">1/36</td><td>1/36</td><td style="color:red">1/36</td><td>1/36</td><td style="color:red">1/36</td>
+			  </tr>
+			  <tr style="border: none;">
+				<td style="border: none;"> </td><td><b>Six</b></td><td style="color:red">1/36</td><td>1/36</td><td style="color:red">1/36</td><td>1/36</td><td style="color:red">1/36</td><td>1/36</td>
+			  </tr>
+			</table><br>
+			For any $\omega \in \Omega$, $P(\omega) = 1/36$.<br><br>
+			<span style="color:red">What does the event that $x+y$ is *odd* correspond to in the table?</span>
+		</textarea>
+		</section>
+		
+				<section data-markdown data-transition="none">
+		  <textarea data-template>
+			## Back to rolling dice
+			Suppose we have *two* fair dice? 
+			
+			Now our sample space is $\Omega = \\{(x,y): x,y \in \\{1,2, \dots 6\\}\\}$
+			
+			<table style="width:100%" borders=0>
+			  <tr>
+			   <center>First die</center>
+			  </tr>
+			  <tr>
+				<th style="border: none;"></th><th style="border: none;"></th><th>One</th><th>Two</th><th>Three</th><th>Four</th><th>Five</th><th>Six</th>
+			  </tr>
+			  <tr style="border: none;">
+				<td style="border: none;"> </td><td><b>One</b></td><td>1/36</td><td style="color:red">1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+			  </tr>
+			  <tr style="border: none;">
+				<td style="border: none;"> </td><td><b>Two</b></td><td>1/36</td><td style="color:red">1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+			  </tr>
+			  <tr style="border: none">
+				<td style="border:none">Second die</td><td><b>Three</b></td><td style="color:red">1/36</td><td style="color:red">1/36</td><td style="color:red">1/36</td><td style="color:red">1/36</td><td style="color:red">1/36</td><td style="color:red">1/36</td>
+			  </tr>
+			  <tr style="border: none;">
+				<td style="border: none;"> </td><td><b>Four</b></td><td>1/36</td><td style="color:red">1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+			  </tr>
+			  <tr style="border: none;">
+				<td style="border: none;"> </td><td><b>Five</b></td><td>1/36</td><td style="color:red">1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+			  </tr>
+			  <tr style="border: none;">
+				<td style="border: none;"> </td><td><b>Six</b></td><td>1/36</td><td style="color:red">1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+			  </tr>
+			</table><br>
+			For any $\omega \in \Omega$, $P(\omega) = 1/36$.<br><br>
+			<span style="color:red">What does the event that $\color{orange}{x=2}$ OR $\color{orange}{y=3}$ correspond to in the table?
+		</textarea>
+		</section>
+		
+		<section data-markdown data-transition="none">
+		  <textarea data-template>
+			## Back to rolling dice
+			Suppose we have *two* fair dice? 
+			
+			Now our sample space is $\Omega = \\{(x,y): x,y \in \\{1,2, \dots 6\\}\\}$
+			
+			<table style="width:100%" borders=0>
+			  <tr>
+			   <center>First die</center>
+			  </tr>
+			  <tr>
+				<th style="border: none;"></th><th style="border: none;"></th><th>One</th><th>Two</th><th>Three</th><th>Four</th><th>Five</th><th>Six</th>
+			  </tr>
+			  <tr style="border: none;">
+				<td style="border: none;"> </td><td><b>One</b></td><td>1/36</td><td style="color:orange">1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+			  </tr>
+			  <tr style="border: none;">
+				<td style="border: none;"> </td><td><b>Two</b></td><td>1/36</td><td style="color:orange">1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+			  </tr>
+			  <tr style="border: none">
+				<td style="border:none">Second die</td><td><b>Three</b></td><td style="color:orange">1/36</td><td style="color:red">1/36</td><td style="color:orange">1/36</td><td style="color:orange">1/36</td><td style="color:orange">1/36</td><td style="color:orange">1/36</td>
+			  </tr>
+			  <tr style="border: none;">
+				<td style="border: none;"> </td><td><b>Four</b></td><td>1/36</td><td style="color:orange">1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+			  </tr>
+			  <tr style="border: none;">
+				<td style="border: none;"> </td><td><b>Five</b></td><td>1/36</td><td style="color:orange">1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+			  </tr>
+			  <tr style="border: none;">
+				<td style="border: none;"> </td><td><b>Six</b></td><td>1/36</td><td style="color:orange">1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+			  </tr>
+			</table><br>
+			For any $\omega \in \Omega$, $P(\omega) = 1/36$.<br><br>
+			<span style="color:red">What does the event that $\color{orange}{x=2}$ AND $\color{orange}{y=3}$ correspond to in the table?
+		</textarea>
+		</section>
+		
+		<section data-markdown data-transition="none">
+		  <textarea data-template>
+			## Statistical independence
+			**Definition:** we call two events $\color{green}{A}$ and $\color{green}{B}$ statistically **independent** when $$P(\color{green}{A} \textrm{ and } \color{green}{B}) = P(\color{green}{A})\cdot P(\color{green}{B})$$<br>
+			Notation: you might see $P(A \textrm{ and } B)$ denoted as $P(A \cap B)$ or simply $P(A, B)$. <br><br>
+			Extension: a collection of events $A_1 \dots A_n$ are independent if $$P(A_1 \cap A_2 \cap \dots \cap A_n) = \prod_{j=1}^n P(A_j)$$
+		 </textarea>
+		</section>
+		
+		<section data-markdown data-transition="none">
+		  <textarea data-template>
+			## Conditional probabilities
+			Let $\color{purple}{B}$ be an event such that $P(\color{purple}{B})>0$.<br><br>
+			**Definition:** the **conditional probability** of  $\color{green}{A}$ given $\color{purple}{B}$ is $$P(\color{green}{A}|\color{purple}{B}) = \frac{P(\color{green}{A} \textrm{ and } \color{purple}{B})}{P(\color{purple}{B})}$$
+			- Meaning: What is the probability of $A$ if we know that event $B$ occurs?<br>
+			- In math: defines a *new* probability space in which $B$ is the whole sample space. $P(A|B)$ is the probability of event A in this new probability space.			
+			- If A and B are independent, then $P(A|B) = P(A)$ and $P(B|A) = P(B)$			
+			- Extension: the conditional probability of $A$ given $B \textrm{ and } C$ is $P(A|B \textrm{ and } C) = \frac{P(A \textrm{ and } B \textrm{ and } C)}{P(B \textrm{ and } C)}$. In general, this definition is call *Bayes' Rule*.
+			
+		 </textarea>
+		</section>
+		
+		<section>
+            <h1><center>Random variables
+        </section>
+		
+		<section data-markdown data-transition="none">
+		  <textarea data-template>
+			## Random variables
+			Sets are nice, but numbers are way easier to deal with!
+			
+			**Definition**: Given a probability space $(\Omega, F, P)$, a **random variable** is a function $X: \color{blue}{\Omega} \rightarrow \mathbb{R}$.
+			
+			Random variables associate a *number* to each outcome $\omega$ in the sample space $\Omega$.
+			
+			Examples: 
+			
+			- We can let $\omega$ denote each side of a die, while $X(\omega)$ denotes the number written on side $\omega$.
+			- We could let $X(\omega)$ be the height of a student in this class, where $\Omega$ represents the whole class.
+				- Here you can think of $\omega$ as the identity of a given student, or equivalently a representation of "everything" about that student. We'll come back to this.
+			
+			</textarea>
+		</section>
+		
+		<section data-markdown data-transition="none">
+		  <textarea data-template>
+			## Random variables induce a new probability $P_X$
+			Let $X$ be a random variable on probability space $(\Omega, F, P)$. Let $\mathcal{X}$ be the range of $X$ on $\Omega$. Then for any $A \subseteq \mathcal{X}$ define:
+			$$P_X(X \in A) := P(\\{\omega: X(\omega) \in A\\})$$			
+			Technically, this gives us a new probability space: $(\mathbb{R}, \mathcal{B}, P_X)$, where $\mathcal{B}$ is the so-called "Borel" $\sigma$-algebra on the real numbers.
+			<br><br>We'll typically denote individual elements of $\mathcal{X}$ by lower-case $x$. These correspond to singleton sets $A$, so: $P_X(X = x) := P(\\{\omega: X(\omega) =x\\})$.
+			<br><br>We'll often let the $X$ in $P_X$ be implicit, e.g. $P(X \le 16)$ or $P(X=4)$. But keep in mind that there is an underlying probability space $(\Omega, F, P)$ in the background.
+		</textarea>
+		</section>
+		
+		<section data-markdown data-transition="none">
+		  <textarea data-template>
+			## Example: years of education
+			Suppose $X(\omega)$ indicates the number of years of schooling for various individuals
+			<center><img src = "images/team2.png" class="plain" align="center" width = 38% align="center"></center>
+		</textarea>
+		</section>
+		
+		<section data-markdown data-transition="none">
+			 <textarea data-template>
+			 ## Distribution functions
+			 Suppose we have a random variable $X$. Is there a succinct way to characterize the function $P(\cdot)$?
+			 
+			 Yes! We can do so through the *cumulative distribution function* (CDF).
+			 
+			 **Definition**: The **cumulative distribution function** of $X$ is defined as the following function:
+			 $$F(x) = P(X \le x) = P(X \in (-\infty, x])$$
+			 - Not to be confused with $\color{gray}{F}$ from the definition of a probability space.
+			 - In cases where it may be ambigious which random variable the CDF corresponds to, we might denote a CDF as $F_X$ instead of $F$
+			 - For any $a, b$: $P(a > X \le b) = F(b)-F(a)$
+			 - CDFs are always weakly increasing functions taking values between zero and one, and are right-continuous. Any function satisfying these properties is a valid CDF.
+			  </textarea>
+		</section>
+		
+		<section data-transition="none">
+			<h2>CDF examples
+			<center>
+			  <img src = "images/cdf2.png" class="plain" align="center" width = 50%>
+			</center>
+		</section>
+		
+		<section data-transition="none">
+			<h2>CDF examples
+			<center>
+			  <img src = "images/cdf1.png" class="plain" align="center" width = 50%>
+			</center>
+		</section>
+		
+		
+		<section data-transition="none">
+			<h2>CDF examples
+			<center>
+			  <img src = "images/cdf3.png" class="plain" align="center" width = 50%>
+			</center>
+			<h3>A "typical CDF" for a continuous random variable with unbounded support
+		</section>
+		
+		<section>
+			<section data-markdown data-transition="none">
+			 <textarea data-template>
+			 ## An example from real-world data
+			 <center>
+			  <img src = "images/cdfhansen.png" class="plain" align="center" width = 50%>
+			 </center>
+			 From Hansen (<i>Probability and Statistics for Economists</i>) page 30.
+			 </textarea>
+			 </section>
+		</section>
+				
+		<section data-transition="none">
+			<h2>CDF examples
+			<center>
+			  <img src = "images/cdf4.png" class="plain" align="center" width = 50%>
+			</center>
+			<h3>A "typical CDF" for a discrete random variable
+		</section>
+		
+		<section data-transition="none">
+			<h2>CDF examples
+			<center>
+			  <img src = "images/cdf5.png" class="plain" align="center" width = 50%>
+			</center>
+			<h3>Random variables may be a mix of continuous and discrete
+		</section>
+		
+		<section data-markdown data-transition="none">
+			 <textarea data-template>
+			 ## Probability mass functions
+			 Suppose that $X$ takes $J$ possible values $x_1 < x_2 < x_3 \dots x_J$.<br><br>
+			 Formally, this occurs when there is a discrete set $\mathcal{X}$ for which $P(X \in \mathcal{X})=1$. In this case we call $X$ a *discrete random variable*.<br><br>
+			 The set of values $x_1 < x_2 < x_3 \dots x_J$ is referred to as the *support* of $X$ or $supp \\{X\\}$.<br><br>
+			 **Definition:** The **probability mass function** of $X$ is $\pi(x) = P(X=x)$<br>
+			 Alternative notation: $\pi_j = P(X=x_j)$<br><br>
+			 The p.m.f. be derived from the CDF
+			 - $\pi(x) = \lim_{\epsilon \downarrow 0}P(x - \epsilon < X \le x) = \lim_{\epsilon \downarrow 0} F(x)-F(x-\epsilon)$.
+			 - $\pi_j = F(x_j) - F(x_{j-1})$
+			 </textarea>
+		</section>
+				
+		<section>
+			<section data-markdown data-transition="none">
+				 <textarea data-template>
+				 ## Probability density functions
+				 Now suppose that $X$ takes all values within some interval $[a,b]$, and furthermore $F(x) = P(X \le x)$ is *differentiable* on $(a,b)$.<br>
+				 
+				 **Definition:** The **probability density function** $f(x)$ is the derivative of $F(x)$<br>
+				 
+				 Many common distributions have the property that the density $f(x)$ exists for all $x$, and we refer to them as *continuous random variables*.
+				 
+				 Recall the definition of the derivative
+				 $$ \scriptsize \frac{d}{dx} F(x) = \lim_{\epsilon \downarrow 0}\frac{F(x)-F(x-\epsilon)}{\epsilon}=\lim_{\epsilon \downarrow 0}\frac{P(x - \epsilon < X \le x)}{\epsilon}$$
+				 Keep in mind:
+				 - $f(x)$ does not tell us the probability that $X=x$. Remember, for a continuous random variable: $P(X=x)=0$.
+				 - Rather, for a small $\epsilon>0$: $P(X \in [x,x+\epsilon]) \approx f(x)\cdot \epsilon$
+				 </textarea>
+			</section>
+		</section>
+
+		<section>
+			Examples of density functions
+			<center>
+				<img src = "images/pdf.png" class="plain" align="center" width = 75%>
+			</center>
+		</section>
+		
+		<section>
+			<section data-markdown data-transition="none">
+			 <textarea data-template>
+			 ## What about r.v.'s that are neither continious nor discrete?
+			 <center>
+			  <img src = "images/cdf5.png" class="plain" align="center" width = 50%>
+			 </center>
+			 A generic CDF can be decomposed: $F(x) = p\cdot F_{cont}(x)+(1-p)\cdot F_{discr}(x)$<br><br>
+			 Where $p \in [0,1]$, $F_{cont}$ admits a density function (i.e. is differentiable) and $F_{disc}$ admits a probability mass function.<br><br>
+			 The interpretation is that we can view $X$ as a so-called "mixture" of a continuous random variable and a discrete one.
+			 </textarea>
+			 </section>
+		</section>
+				
+		<section>
+			<section data-markdown data-transition="none">
+			 <textarea data-template>
+			## A few properties of random variables
+			
+			<span>&#9654;</span> If $X$ is a random variable, then so is $Y=g(X)$ for any "measurable" function $g(x)$, e.g. $X+1$ or $2X_i$ or $X^2$
+			- The probability space for $Y$ is still $(\Omega, \mathcal{B}, P)$, only $P$ has changed.
+			- We can characterize the $P$ for $Y$ through its CDF: $F_{Y}(y) = P(g(X) \le y)$
+			- If $X$ has discrete support $x_1, x_2 \dots$ with probabilities $\pi_1, \pi_2 \dots$, then $g(X)$ has discrete support $g(x_1), g(x_2), \dots$ with same probabilities $\pi_1, \pi_2, \dots$
+			
+			<div class="fragment" data-fragment-index="1">
+			<span>&#9654;</span> More generally, if $X$ and $Y$ are random variables, then so is $g(X, Y)$
+			
+			- e.g. $X + Y$ or $X \cdot Y$ or $\min\\{X, Y\\}$
+			- However, the distribution of e.g. $X + Y$ depends on the full joint-distribution of $(X, Y$) (we'll come back to this)
+			</div><div class="fragment" data-fragment-index="2">
+			<span>&#9654;</span> A non-stochastic variable $x$ can be viewed as a "degenerate" random variable, meaning it puts all of its probability mass at a single point: $P(X=x) = 1$
+			</span>
+			</textarea>
+			</section>
+		</section>
+		
+		<section>
+            <h1><center>Expectation
+        </section>		
+		
+		<section>
+			<section data-markdown data-transition="none">
+			 <textarea data-template>
+			 ## Expectation: general definition
+			 Consider a random variable $X$ with CDF $F(x)$. The following is a general definition of the expectation operator that allows for $X$ to be discrete, continuous, or mixed.
+			 
+			 **Definition:** The expectation of $X$ is:
+			 $$\scriptsize \begin{align} \mathbb{E}[X] &= \int_{-\infty}^\infty x\cdot dF(x)\\\\ &:=  \lim_{a \rightarrow -\infty, b \rightarrow \infty} \color{green}{\lim_{N \rightarrow \infty}} \sum_{n=1}^{N} \color{red}{\left\\{a+n\cdot \frac{b-a}{N}\right\\}}\cdot \left\\{\color{blue}{F\left(a+n\cdot \frac{b-a}{N}\right)-F\left(a+(n-1)\cdot \frac{b-a}{N}\right)}\right\\} \end{align}$$
+			 For given values of $a,b,N$, imagine cutting the interval $[a,b]$ into $N$ regions of size $\frac{b-a}{N}$. The $n^{th}$ such region extends from $a+(n-1)\cdot \frac{b-a}{N}$ to $a+n\cdot \frac{b-a}{N}$.
+			 - $\color{blue}{F\left(a+n\cdot \frac{b-a}{N}\right)-F\left(a+(n-1)\cdot \frac{b-a}{N}\right)}$ yields $P(X \in \textrm{ region }n)$.
+			 - $\color{red}{\left\\{a+n\cdot \frac{b-a}{N}\right\\}}$ is the location of (the right end of) region $n$.
+			 - $\color{green}{\lim_{N \rightarrow \infty}}$ takes the sum to an integral, and the $a,b$ limit covers full support of $X$.
+			 </textarea>
+</textarea>
+			</section>
+		</section>
+		
+		<section>
+			<section data-markdown data-transition="none">
+			 <textarea data-template>
+			 ## Expectation: discrete case
+			 We'll never need that general definition in this class: it takes simpler forms when $X$ is either discrete or continuous.
+			 
+			 Suppose $X$ takes discrete values $x_1 < x_2 < x_3 \dots $ with associated probability mass function $\pi_j$.<br><br>
+			 $$\mathbb{E}[X] = \int_{-\infty}^\infty x\cdot dF(x) = \sum_{j} x_j \cdot \pi_j$$
+			 
+			 To derive this from the general definition on the last slide, notice that for large enough $N$, only one $x_j$ can be between $a+\frac{n-1}{N}(b-a)$ and $a+\frac{n}{N}(b-a)$. Thus:
+			 $$\small \left\\{\color{blue}{F\left(a+\frac{n}{N}(b-a)\right)-F\left(a+\frac{n-1}{N}(b-a)\right)}\right\\} = \pi_j$$
+			 if $x_j$ is between $a+\frac{n-1}{N}(b-a)$ and $a+\frac{n}{N}(b-a)$, and the term in brackets is zero if no $x_j$ is between them.			 
+			 </textarea>
+			</section>
+		</section>
+		
+		<section>
+			<section data-markdown data-transition="none">
+			 <textarea data-template>
+			 ## Expectation: continuous case
+			 Suppose $F(x)$ is differentiable everywhere. Then:
+			 $$\mathbb{E}[X] = \int_{-\infty}^\infty x\cdot dF(x) = \int_{-\infty}^\infty x\cdot f(x)\cdot dx$$
+			 To derive this from the general definition, notice that for large $N$:
+			 $$\small \left\\{\color{blue}{F\left(a+\frac{n}{N}(b-a)\right)-F\left(a+\frac{n-1}{N}(b-a)\right)}\right\\} \approx f\left(a+\frac{n}{N}(b-a)\right) \cdot \frac{b-a}{N}$$
+			 where $f(x)$ is the pdf of $X$. This comes from the Taylor expansion $F(x+\epsilon) \approx F(x) + F'(x)\cdot \epsilon$.
+			 
+			 Press down-arrow for an example where $X$ has a mixed discrete-continuous distribution.
+			 </textarea>
+			</section>
+			
+			<section>
+			<h2>Expectation for a mixed distribution<h3>
+			Suppose that $$F(x) = p \cdot F_c(x) + (1-p) \cdot F_d(x),$$ where $F_c(x)$ is a differentiable CDF with density $f(x)$, and $F_d(x)$ is a discrete CDF with associated probability mass function $\pi_j$ for support points $x_j$.
+			
+			<br><br>Note that the definition of $\mathbb{E}[X]$ is <i>linear</i> in the CDF $F(x)$.
+			
+			<br><br>This implies that the expectation is equal to $p$ times an expectation according to $F_c$, plus $1-p$ times an expectation according to $F_d$:
+		
+			$$\mathbb{E}[X] = \int_{-\infty}^\infty x\cdot dF(x) = \color{orange}{p} \cdot \int_{-\infty}^\infty x\cdot f(x)\cdot dx + \color{orange}{(1-p)}\cdot \sum_{j} x_j \cdot \pi_j$$
+			</section>
+		</section>
+				
+		<section>
+			<section data-markdown data-transition="none">
+			 <textarea data-template>
+			## Expectation is awesome
+			
+			- Intuitively, expectation measures the "average" value of a random variable $X$, where we weight the distribution according to the distribution of $X$.
+			
+			- We'll see later in this course that this principle has an empirical meaning: if we have a large number of realizations of a random variable $X$, their average will be close to $\mathbb{E}[X]$ with very high probability.
+			
+			- $\mathbb{E}[X]$ is also our "best guess" of the value of $X$ in the sense that
+			$$ \mathbb{E}[X] = \textrm{argmin}_a \mathbb{E}[(X-a)^2]$$
+			
+			- An important and useful property of expectation is that it is *linear*:
+				- $\mathbb{E}[a \cdot X] = a \cdot \mathbb{E}[X]$ for any constant $a \in \mathbb{R}$
+				- $\mathbb{E}[X+Y] = \mathbb{E}[X] + \mathbb{E}[Y]$ for any two random variables $X$ and $Y$
+				
+			- Warning: $E[X]$ does not always exist as a finite number!
+			</textarea>
+			</section>
+		</section>
+				
+		<section>
+            <h1><center>Conditional distributions and expectations
+        </section>
+		
+		<section>
+			<section data-markdown data-transition="none">
+			 <textarea data-template>
+			## Conditional expectations: motivation
+			
+			- In econometrics, we usually have data that records several variables e.g. $(X, Y, Z, \dots)$ for each observational unit $i$
+			- We're interested in the relationships between these variables
+			- The concept of the *conditional expectation* will play a fundamental role in how we study these relationships
+			- Intuitively: $\mathbb{E}[Y|X=x]$ answers the following question: what is the average value of $Y$ when we know that $X=x$?
+			- When the answer to this question depends on the particular value of $x$ we've chosen, we conclude that there is a statistical relationship between $X$ and $Y$
+			
+			</textarea>
+			</section>
+		</section>
+		
+		<section>
+			<section data-markdown data-transition="none">
+			 <textarea data-template>
+				## Conditional probabilities for a discrete random variable
+				- Recall that for events $A$ and $B$, the conditional probability of $A$ given $B$ is defined by Bayes Rule: $$P(A|B) = P(A\textrm{ and }B)/P(B)$$
+				- The idea of a conditional distribution applies this idea to random variables. Provided that $P(X_i=x) > 0$:
+				   $$ P(Y=y|X=x)=\frac{P(Y = y \textrm{ and } X=x)}{P(X=x)}$$				
+				- We can also define a conditional CDF for $Y$:
+					$$ P(Y\le y|X=x)=\frac{P(Y \le y \textrm{ and } X=x)}{P(X=x)}$$
+				</textarea>
+			</section>
+		</section>
+		
+		<section>
+			<section data-markdown data-transition="none">
+			 <textarea data-template>
+			## Conditional distributions: general definition
+			
+			What if $X$ is a continuous random variable?
+			
+			The following definition works regardless of whether $X$ and/or $Y$ are discrete, continuous, or mixed:
+			
+			**Definition:** the **conditional CDF** of $Y$ given $X=x$ is $$P(Y \le y|X=x) :=\lim_{\epsilon \downarrow 0} P(Y \le y|x \le  X \le x + \epsilon)$$
+			
+			Alternative notations: we'll often write $P(Y \le y|X=x)$ as $F_{Y|X}(y|x)$ or sometimes $F_{Y|X=x}(y)$.
+			
+			Scroll down to read about how the quantity $P(Y \le y|X=x)$ can be interpreted in terms of the *joint distribution* of $X$ and $Y$.
+			</textarea>
+		</section>
+	
+		<section data-markdown data-transition="none">
+			 <textarea data-template>
+			## Joint distribution functions
+			
+			Recall the CDF function $F_X(x) = P(X \le x)$ for a r.v. $X$.<br>
+			
+			**Definition:** the **joint CDF** of two random variables $X$ and $Y$ is defined as $$F_{XY}(x,y) = P(X \le x, Y \le y)$$
+			where $(X \le x, Y \le y)$ is understood as the event that $X \le x$ <u>and</u> $Y \le y$.
+						
+			A couple notes
+			- this "and" statement is well-defined because $X$ and $Y$ share a common probability space (recall the two-dice example)
+			- when the cross derivative $\frac{d^2}{dx dy}F_{XY}(x,y)$ exists, it defines a *joint-density* $f_{XY}(x,y)$ for $X$ and $Y$
+			
+			(Press down arrow for some visual examples)
+			
+			</textarea>
+			</section>
+			
+			<section>
+			
+			Example: let $X$ and $Y$ be two uniform $[0,1]$ random variables that are independent. Then $$F_{XY}(x,y) = F_X(x)\cdot F_Y(y) = x\cdot y$$
+			<center>
+			<div style="border: 0px solid rgb(201, 0, 1); overflow: hidden; margin: 15px auto; max-width: 736px;">
+				<iframe scrolling = "yes" src="https://academo.org/demos/3d-surface-plotter/?expression=x*y&xRange=0%2C1&yRange=0%2C1&resolution=25" style="border: 0px none; margin-left: -0px; height: 450px; margin-top: -0px; width: 1070px;"></iframe>
+			</div>
+			</center>
+			<h4> Source: <a href="https://academo.org/demos/3d-surface-plotter/?expression=x*y&xRange=0%2C1&yRange=0%2C1&resolution=25">https://academo.org/demos/3d-surface-plotter/?expression=x*y&xRange=0%2C1&yRange=0%2C1&resolution=25</a>
+			</section>
+			
+			<section>
+			Example: let $X$ and $Y$ be two uniform "logistic" random variables that are independent. Then $$F_{XY}(x,y) = F(x)\cdot F(y) \textrm{ where } F(t) = \frac{1}{1+e^{-t}}$$
+			<center>
+			<div style="border: 0px solid rgb(201, 0, 1); overflow: hidden; margin: 15px auto; max-width: 736px;">
+				<iframe scrolling = "yes" src="https://academo.org/demos/3d-surface-plotter/?expression=1%2F((1%2Be%5E(-x))*(1%2Be%5E(-y)))&xRange=-5%2C5&yRange=-5%2C5&resolution=25" style="border: 0px none; margin-left: -0px; height: 450px; margin-top: -0px; width: 1070px;"></iframe>
+			</div>
+			</center>
+			<h4> Source: <a href="https://academo.org/demos/3d-surface-plotter/?expression=1%2F((1%2Be%5E(-x))*(1%2Be%5E(-y)))&xRange=-5%2C5&yRange=-5%2C5&resolution=25">https://academo.org/demos/3d-surface-plotter/?expression=1%2F((1%2Be%5E(-x))*(1%2Be%5E(-y)))&xRange=-5%2C5&yRange=-5%2C5&resolution=25</a>
+			</section>
+			
+			<section>
+			In the last example, the joint PDF is $$f_{XY}(x,y) = \frac{d}{dx}F(x)\cdot \frac{d}{dy}F(y) \textrm{ where } \frac{d}{dt}F(t) = \frac{e^{-t}}{(1+e^{-t})^2}$$
+			<center>
+			<div style="border: 0px solid rgb(201, 0, 1); overflow: hidden; margin: 15px auto; max-width: 736px;">
+				<iframe scrolling = "yes" src="https://academo.org/demos/3d-surface-plotter/?expression=e%5E(-x)%2F(1%2Be%5E(-x))%5E2*e%5E(-y)%2F(1%2Be%5E(-y))%5E2&xRange=-5%2C5&yRange=-5%2C5&resolution=25" style="border: 0px none; margin-left: -0px; height: 450px; margin-top: -0px; width: 1070px;"></iframe>
+			</div>
+			</center>
+			<h4> Source: <a href="https://academo.org/demos/3d-surface-plotter/?expression=e%5E(-x)%2F(1%2Be%5E(-x))%5E2*e%5E(-y)%2F(1%2Be%5E(-y))%5E2&xRange=-5%2C5&yRange=-5%2C5&resolution=25">https://academo.org/demos/3d-surface-plotter/?expression=e%5E(-x)%2F(1%2Be%5E(-x))%5E2*e%5E(-y)%2F(1%2Be%5E(-y))%5E2&xRange=-5%2C5&yRange=-5%2C5&resolution=25</a>
+			</section>
+			
+			<section data-markdown data-transition="none">
+			 <textarea data-template>
+			## Joint distributions: continued
+			
+			A property of joint distributions that gets used a lot is the relationship between the joint distribution of $X$ and $Y$ and their so-called "marginal distributions".
+			
+			For example:
+			- $F_X(x) = F_{XY}(x,\infty) = P(X \le x, Y \le \infty) = P(X \le x)$
+				- Similarly $F_Y(y)=F_{XY}(\infty,y)$
+			- If $X$ and $Y$ are both discrete: $P(X=x) = \sum_{j} P(X=x\textrm{ and } Y=y_j)$ where $y_j$ are the support points of $Y$ (down for example)
+			- If $X$ and $Y$ are both continuously distributed: $f_X(x) = \int_{-\infty}^\infty f_{XY}(x,y) dy$
+						
+			These rules follow from the *law of total probability*, which says that for any countable collection of events $A_1, A_2, \dots$ that partition the sample space (that is, $\bigcup_j A_j = \Omega$ and the $A_j$ are disjoint), then $P(B) = \sum_j P(B \cap A_j)$ for any event $B$ (press down arrow for a proof).
+			
+			</textarea>
+			</section>
+			
+			<section data-markdown data-transition="none">
+			  <textarea data-template>
+				## Example: marginal distribution in the two-dice setting
+				
+				<table style="width:100%" borders=0>
+				  <tr>
+				   <center>First die</center>
+				  </tr>
+				  <tr>
+					<th style="border: none;"></th><th style="border: none;"></th><th>One</th><th>Two</th><th>Three</th><th>Four</th><th>Five</th><th>Six</th>
+				  </tr>
+				  <tr style="border: none;">
+					<td style="border: none;"> </td><td><b>One</b></td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+				  </tr>
+				  <tr style="border: none;">
+					<td style="border: none;"> </td><td><b>Two</b></td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+				  </tr>
+				  <tr style="border: none">
+					<td style="border:none">Second die</td><td><b>Three</b></td><td style="color:red">1/36</td><td style="color:red">1/36</td><td style="color:red">1/36</td><td style="color:red">1/36</td><td style="color:red">1/36</td><td style="color:red">1/36</td>
+				  </tr>
+				  <tr style="border: none;">
+					<td style="border: none;"> </td><td><b>Four</b></td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+				  </tr>
+				  <tr style="border: none;">
+					<td style="border: none;"> </td><td><b>Five</b></td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+				  </tr>
+				  <tr style="border: none;">
+					<td style="border: none;"> </td><td><b>Six</b></td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td><td>1/36</td>
+				  </tr>
+				</table><br>
+				
+				$P(Y=3) = \sum_{j=1}^6 \color{red}{P(X = j \textrm{ and } Y=3)}$, summing across third row.
+				
+				Similarly, for $P(X=j)$ we would simply sum down column $j$, across values of $Y$.
+			</textarea>
+			</section>
+			
+			<section data-markdown data-transition="none">
+			 <textarea data-template>
+			## Proof of the law of total probability
+			
+			Since any event $B \subseteq \Omega$, $B = B \cap \Omega$ and thus $P(B) = P(B \cap \Omega)$.
+			
+			Now, since $\bigcup_j A_j = \Omega$, we have that $P(B) = P\left(B \cap \bigcup_j A_j\right)$.
+			
+			Observe that $B \cap \bigcup_j A_j = \bigcup_j (B \cap A_j)$, and that the events $(B \cap A_j)$ are disjoint.
+			
+			Thus, $P(B) = \sum_j P(B \cap A_j)$, proving the result.
+			</textarea>
+			
+			</section>
+			
+		</section>
+				
+		<section>
+			<section data-markdown data-transition="none">
+			 <textarea data-template>
+			## Deriving the discrete $X$ case from the general definition
+			When $P(X=x)>0$, then using the definition of conditional probability, and the quotient rule for limits:
+			$$ \begin{align}F_{Y|X}(y|x)&=\lim_{\epsilon \downarrow 0} \frac{P(Y \le y \textrm{ and } x \le  X \le x + \epsilon)}{P(x \le  X \le x + \epsilon)}\\\\
+			&=\frac{\lim_{\epsilon \downarrow 0} P(Y \le y \textrm{ and } x \le  X \le x + \epsilon)}{\lim_{\epsilon \downarrow 0} P(x \le  X \le x + \epsilon)}\\\\
+			&=\color{blue}{\frac{P(Y \le y \textrm{ and } X=x)}{P(X=x)}} \end{align}$$
+			
+			Interpretation: $F_{Y|X}(y|x)$ is the CDF of $Y$ among the sub-population for which $X=x$.
+
+			</textarea>
+			</section>
+		</section>
+		
+		<section>
+			<section data-markdown data-transition="none">
+			 <textarea data-template>
+			## Conditional distribution: continuous $X$
+			When $X$ is continuously distributed, $P(X=x)=0$ so we have to use something akin to L'Hôpital's rule to evaluate the limit:
+			$$ \begin{align}F_{Y|X}(y|x)&=\lim_{\epsilon \downarrow 0} \frac{P(Y \le y \textrm{ and } x \le  X \le x + \epsilon)}{P(x \le  X \le x + \epsilon)}\\\\
+			&=\frac{\lim_{\epsilon \downarrow 0} P(Y \le y \textrm{ and } x \le  X \le x + \epsilon)/\color{red}{\epsilon}}{\lim_{\epsilon \downarrow 0} P(x \le  X \le x + \epsilon)/\color{red}{\epsilon}}\\\\
+			&=\color{blue}{\frac{\frac{d}{dx} P(Y \le y \textrm{ and } X \le x)}{f_X(x)}} \end{align}$$
+			
+			Provided that $f_X(x)>0$ and $\frac{d}{dx} F_{XY}(x,y)$ exists.
+			
+			Interpretation: $F_{Y|X}(y|x)$ is the CDF of $Y$ among the sub-population for which $X$ is "very close" to $x$.
+			<!-- Also, when *both* $X$ and $Y$ are continuous, then $\small F_{Y|X}(y|x) = \int_{-\infty}^y f_{Y|X}(t|x)\cdot dt$ where $f_{Y|X}(y|x):=\frac{f_{XY}(x,y)}{f_X(x)}$ -->
+			</textarea>
+			</section>
+		</section>
+		
+		<section>
+			<section data-markdown data-transition="none">
+			 <textarea data-template>
+			## Conditional distributions: summary
+	
+			For a fixed $x$, we can verify that $F_{Y|X}(y|x)$ satisfies the properties of a univariate CDF for $Y$ (the notation $F_{Y|X=x}(y)$ is nice here). That is,
+			- $F_{Y|X=x}(y)$ is weakly increasing in $y$
+			- $\lim_{y \uparrow \infty} F_{Y|X=x}(y) = 1$
+			- $\lim_{y \downarrow -\infty} F_{Y|X=x}(y) = 0$
+			- $F_{Y|X=x}(y)$ is continuous from the right
+			
+			To define $\mathbb{E}[Y|X=x]$, we simply treat $F_{Y|X=x}(y)$ as a distribution for $Y$.
+	
+			</textarea>
+			</section>
+		</section>
+		
+		<section>
+			<section data-markdown data-transition="none">
+			 <textarea data-template>
+			## Conditional expectation function
+		
+			**Definition**: the **conditional expectation function** (CEF) of $Y$ given $X$ is:
+			$$ \mathbb{E}[Y|X=x] = \int_{- \infty}^\infty y \cdot dF_{Y|X=x}(y) $$
+			viewed as a function of $x$.
+			
+			Again, we can rewrite this depending on what type of random variable $Y$ is:
+			- When $Y$ is continuous: $$\small \color{blue}{\\mathbb{E}[Y|X=x]=\int_{- \infty}^\infty y \cdot f_{Y|X=x}(y)\cdot dy} \quad \textrm{ where } \quad f_{Y|X=x}(y) = \frac{d}{dy}F_{Y|X=x}(y)$$
+			- When $Y$ is discrete: $$\small \color{blue}{\mathbb{E}[Y|X=x] = \sum_{j} y_j \cdot \pi_{j|X=x}} \quad \textrm{ where } \quad \pi_{j|X=x}= \left\\{\lim_{\epsilon \downarrow 0} \left\\{F_{Y|X=x}(y_j)-F_{Y|X=x}(y_j-\epsilon)\right\\}\right\\}$$
+			</textarea>
+			</section>
+		</section>
+		
+		<section>
+			<section data-markdown data-transition="none">
+			 <textarea data-template>
+			## Conditional expectation as a random variable instead of a function
+			
+			Let $m(x):= \mathbb{E}[Y|X=x]$ be the CEF of $Y$ on $X$.
+			
+			Note that $m: supp\\{X\\} \rightarrow \mathbb{R}$ is a function, not a random variable.
+			
+			But we can use $m$ to define a new random variable $m(X)$, which we denote $\mathbb{E}[Y|X]$.
+			
+			- For example, if $X$ is discrete, then $\mathbb{E}[Y|X]$ takes value $m(x_j) = \mathbb{E}[Y|X=x_j]$ with probability $\pi_j$.
+			
+			Now we can state a very useful result that gets used over and over again in statistics, the so-called *law of iterated expectations*.
+			</textarea>
+			</section>
+		</section>
+		
+		<section>
+			<section data-markdown data-transition="none">
+			 <textarea data-template>
+			## The law of iterated expectations
+			
+			**Proposition** (the law of iterated expectations) $\mathbb{E}[Y] = \mathbb{E}\left[\mathbb{E}[Y|X]\right]$
+			
+			We'll prove the law of iterated expectations (LIE) for the case of a continuous $X$ and $Y$. The other cases are analagous. Starting from the RHS:
+			
+			<!--$$ \begin{align} \mathbb{E}\left[\mathbb{E}[Y|X]\right] &= \sum_{j} \pi_j \cdot \mathbb{E}[Y|X=x_j] \\\\ &=\end{align}$$-->
+			$$ \small \require{cancel} \begin{align} \mathbb{E}\left[\mathbb{E}[Y|X]\right] &= \int_{x \in \mathbb{R}: f_X(x)>0} f_X(x) \cdot \mathbb{E}[Y|X=x]\cdot dx \\\\ &= \int_{x \in \mathbb{R}: f_X(x)>0} f_X(x) \cdot \left\\{ \int_{y \in \mathbb{R}} y \cdot f_{Y|X}(y|x) \cdot dy\right\\}\cdot dx \\\\ &= \int_{x \in \mathbb{R}: f_X(x)>0} \cancel{f_X(x)} \cdot \left\\{ \int_{y \in \mathbb{R}} y \cdot \frac{f_{XY}(x,y)}{\cancel{f_X(x)}} \cdot dy\right\\}\cdot dx\\\\ &= \int_{y \in \mathbb{R}} y \cdot \underbrace{\left\\{\int_{x \in \mathbb{R}: f_X(x)>0} f_{XY}(x,y) \cdot dx \right\\}}\_{=f_{Y}(y)} \cdot dy = \int_{y \in \mathbb{R}} y \cdot f_{Y}(y) \cdot dy = \mathbb{E}[Y] \end{align}$$
+			</textarea>
+			</section>
+		</section>
+		
+		<section>
+			<section data-markdown data-transition="none">
+			 <textarea data-template>
+			## Variance
+			
+			**Definition:** The variance $Var(X)$ of a random variable $X$ is defined as
+			$$\small Var(X) = E[(X-E[X])^2]$$
+			- Variance is always weakly positive (why?), and is zero for a degenerate random variable
+			- A very useful identity is $\small Var(X) = E[X^2] - (E[X])^2$.
+				- <h4> Proof: $E[(X-E[X])^2] = E[X^2 - 2X_iE[X] + (E[X])^2] = E[X^2] - 2E[X]E[X] + (E[X])^2$
+			- The conditional variance $Var(Y|X=x)$ is defined as the variance of the conditional distribution, i.e.
+			$$\small Var(Y|X=x) = E[(Y-E[Y])^2|X=x]$$
+			- The "law of total variance": $\small Var(Y) = E[Var(Y|X)] + Var(E[Y|X]) $
+			</textarea>
+			</section>
+		</section>
+		
+		<section>
+            <h1><center>Random vectors
+        </section>
+		
+		<section>
+			<section data-markdown data-transition="none">
+			 <textarea data-template>
+			## Random vectors
+			
+			Rather than coming up with new letters $X, Y, Z$ for multiple random variables, sometimes it is more convenient to think of "random vectors"
+			
+			**Definition:** A random vector $X$ is a vector in which each component is a random variable, e.g.
+			$$ \small X = \begin{pmatrix}X_{1} \\\ X_{2} \\\ \vdots \\\ X_{ki}\end{pmatrix}$$
+			where $X_{1}$, $X_{2}$, etc. are each random variables.
+			
+			A realization $\mathbf{x}$ of $X$ is a point in $\mathbb{R}^k$, i.e. $\mathbf{x} = (x_1, x_2, \dots, x_k)'$.
+						
+			When we have a random vector $X$, we can define a *joint-CDF* $F_X$ to characterize it's distribution: $ F_X(\mathbf{x}) = P(X_{1} \le x_1 \textrm{ and } X_{2} \le x_2 \dots \textrm{ and }  \dots X_{k} \le x_k)$
+			
+			<!--I won't always make the vector nature of $\mathbf{x}$ explicit with boldface. In general, we'll be assuming that $X$ may have multiple components, unless stated otherwise.-->
+			</textarea>
+			</section>
+		</section>
+		
+		<section>
+			<section data-markdown data-transition="none">
+			 <textarea data-template>
+			## Expectations of a random vector
+			
+			Given a random vector $X$, we can define it's expectation as a vector composed of the expectation of each of its components:
+			$$ E[X] = \left[\begin{pmatrix}X_{1} \\\ X_{2} \\\ \vdots \\\ X_{k}\end{pmatrix}\right] := \begin{pmatrix}E[X_{1}] \\\ E[X_{2}] \\\ \vdots \\\ E[X_{k}]\end{pmatrix}$$
+			
+			<br><br>We will also define and make use of the *variance* $Var(X)$ for a random vector, but will introduce this later in the course after reviewing more matrix algebra.
+			</textarea>
+			</section>
+		</section>
+		
+		<section>
+			<section data-markdown data-transition="none">
+			 <textarea data-template>
+			## Conditional expectations with random vectors
+			
+			Using the definition of conditional probability for several events (e.g. $P(A|B \textrm{ and } C) = \frac{P(A\textrm{ and } B \textrm{ and } C)}{P(B \textrm{ and } C)}$, we can define:
+			- The conditional CDF $F_{Y|X}(y|\mathbf{x})$ when $X$ is a random vector
+				- $\small F_{Y|X}(y|\mathbf{x}) = \lim_{\epsilon_1, \epsilon_2, \dots \downarrow 0}P(Y \le y|X_{1} \in [x_1, x_1 + \epsilon_1], X_{2} \in [x_2, x_2 + \epsilon_2] \dots )$
+			- The CEF for $\mathbb{E}[Y|X = \mathbf{x}]$ when $X$ is a random vector, using $F_{Y|X}(y|\mathbf{x})$
+			
+			Note that
+			- The LIE still holds $\mathbb{E}[Y] = \mathbb{E}\left[\mathbb{E}[Y|X]\right]$ when $X$ is a random vector
+			- Separating $Y$ and $X$ here is just notation. We can also define quantities like $\mathbb{E}[X_{k}|X_{1i} = x_1,X_{2}=x_2, \dots X_{k-1}=x_{k-1}]$ for some vector $\mathbf{x} = (x_1, x_2, \dots, x_{k-1})'$ in $\mathbb{R}^{k-1}$
+			</textarea>
+			</section>
+		</section>		
+		
+		<script src="reveal/js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+		Reveal.initialize({
+		// The "normal" size of the presentation, aspect ratio will
+			  // be preserved when the presentation is scaled to fit different
+			  // resolutions. Can be specified using percentage units.
+			  width: 1224,
+			  height: 764,
+
+			  // Factor of the display size that should remain empty around
+			  // the content
+			  margin: 0.04,
+
+			  // Bounds for smallest/largest possible scale to apply to content
+			  minScale: 0.2,
+			  maxScale: 2.0,
+				history: true,
+				dependencies: [
+					{ src: 'reveal/plugin/anything/anything.js' },
+					{ src: 'reveal/plugin/mathsvg/math.js' },
+					{ src: 'reveal/plugin/chalkboard/chalkboard.js' },
+					{ src: 'reveal/plugin/mouse-pointer/mouse-pointer.js', async: true }, 
+					{ src: 'reveal/plugin/markdown/marked.js' },
+					{ src: 'reveal/plugin/markdown/markdown.js' },
+					{ src: 'reveal/plugin/notes/notes.js', async: true },
+					{ src: 'reveal/plugin/highlight/highlight.js', async: true }
+				],
+				keyboard: {
+						67: function() { RevealChalkboard.toggleNotesCanvas() },	// toggle notes canvas when 'c' is pressed
+						66: function() { RevealChalkboard.toggleChalkboard() },	// toggle chalkboard when 'b' is pressed
+						46: function() { RevealChalkboard.clear() },	// clear chalkboard when 'DEL' is pressed
+						 8: function() { RevealChalkboard.reset() },	// reset chalkboard data on current slide when 'BACKSPACE' is pressed
+						68: function() { RevealChalkboard.download() },	// downlad recorded chalkboard drawing when 'd' is pressed
+				},
+				chalkboard: {
+					theme: "whiteboard"
+				}
+			});
+			
+			document.addEventListener('contextmenu', handleClick);
+			docment.addEventListener('touchstart', process_touchstart, false);
+
+			function process_touchstart(ev) {
+			  // Use the event's data to call out to the appropriate gesture handlers
+			  switch (ev.touches.length) {
+				case 2: RevealChalkboard.clear();  break;
+			  }
+			}
+
+			function handleClick(e) {
+				RevealChalkboard.clear(); 
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,213 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+		<link rel="stylesheet" href="metropolis.css">
+
+		<style>
+		li{
+		  margin: 15px 0;
+		}
+		.fragment.current-visible.visible:not(.current-fragment) {
+			display: none;
+			height:0px;
+			line-height: 0px;
+			font-size: 0px;
+		}
+		a:link {
+		  text-decoration: underline;
+		}
+		</style>
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+        <section>
+            <h1>Introduction to R</h1>
+			<h2>Len Goff</h2>
+			<br><br>
+			<h3>(Use right and left arrow keys to navigate)
+          </textarea>
+        </section>
+
+        <section>
+			<h2>Where does R fit into the constellation of software for economics research?</h2>
+			<ul>
+				<li>What most economists currently use:
+					<ul>
+						<li>Stata and R for applied microeconomics</li>
+						<li>Matlab for macro, computational </li>
+					</ul>
+				</li>
+				<li>Increasingly, economists are using other general purpose programming languages for stats/machine learning:
+					<ul>
+						<li>Python, Julia</li>
+					</ul>
+				</li>
+				<li>Other software you may have heard of (mostly older):
+				<ul>
+				  <li>SAS, SPSS, GAUSS, Mathematica</li>
+				</ul>
+			  </li>
+			</ul>
+			<br><br>
+			Most of these software environments can do <em>most</em> of the things you might want. Main considerations: ease of coding, cost, speed, strength of user-generated libraries.
+		</section>
+
+		<section>
+			<h2>The workflow of a programming research project</h2>
+			<h3>
+			Before we dive into the nuts-and-bolts of R, let's discuss the important issue of staying organized in a research project.<br><br>
+			This is both a practical matter as well as important for the principle of <em>replicability</em>.<br><br>
+			There should always be a complete enough record of the steps between your initial input of data (e.g. from the web) to the final results that somebody could repeat your whole analysis and arrive at the same ones, numerically.
+			<ul>
+				<li>This person will likely be <em>you</em> later, after you've forgotten exactly what you did..</li>
+				<li>Replicability is a strong reason to use code-based software rather than point-and-click (e.g. Excel)
+				<li>Submitting code (and data, when possible) is now a requirement at many journals</li>
+				<li>Subtle issue: when using randomization-based methods (e.g. bootstrap standard errors, simulations), should set a "seed"
+			</ul>
+		</section>
+		
+		<section>
+			<section>
+				<h2> The project folder</h2>
+				When you embark on a research project (e.g. your senior thesis), I like to create a master folder for the project. Then I keep different types of things separate within it. e.g.<br><br>
+				<h4><center>My Project Name/<br>
+				<ul style="list-style-type:none">
+					<li> raw data/</li>
+					<li> processed data/</li>
+					<li> code/</li>
+					<li> results/</li>
+					<li> notes/</li>
+					<li> literature/</li>
+					<li> presentations/</li>
+					<li> paper/</li>
+				</ul>
+				<br></h4>
+				Try not to rely too heavily on filenames to remind you what a thing is. Rather, have a record of how file was produced (down).
+			</section>
+			<section>
+				<h2>Inside the raw data folder</h2>
+				<p>If a file was produced by code (e.g. an intermediate dataset, table, figure) then there is already a record of how it got there.</p>
+				<p>If I downloaded data from the web, I like to include a "_datasource.txt" file that describes the URL, date of download, and any notes.</p>
+				<p>Similarly, if you had to do anything "by hand" to your data (e.g. format it somehow in Excel before import to R), it's good to keep a record of exactly what you did (e.g. in some sort of ``notes" file or perhaps as comments in your R code).</p>
+			</section>
+		</section>
+		
+		<section>
+			<h2>Considerations:</h2>
+			Wise to work within a folder that's synchronized to the cloud (e.g. Dropbox, iCloud, etc..). This also makes collaboration much easier.<br><br>
+			If you have sensitive data, you may want to add "end-to-end" encryption. I use <a href="https://www.boxcryptor.com/en/">BoxCryptor</a>.<br><br>
+			
+			"Version control": most popular software for this is called <a href="https://desktop.github.com/">Git</a>.
+			<ul><li>Additionally, may want an "/old" folder within each subfolder (e.g. /code) to save versions periodically and at salient points.</li></ul><br><br>
+			
+			If you're going to be doing several research projects:
+			<ul>
+				<li>Nice to put all projects in parent folder, e.g. Dropbox/Research
+				<li>Makes sense to keep raw data in a folder that's outside of project folders, if using some of the same data across projects</li>
+			</ul>
+		</section>
+		
+		<section>
+			<center><h1>Now on to R!
+		</section>
+		
+		<section>
+			<section>
+				<h2> Getting and running R</h2>
+				R is open-source software. Yay! You can download it for free <a href="https://www.r-project.org/">here</a>. Comes with a simple interface for editing and running code.<br><br>
+				Usually, it's easiest to use an interactive interface to edit and run your code (scroll down for more info):
+				<ul>
+					<li><font color="red">RStudio -- the most popular among economists</font></li>
+					<li><font color="red">Jupyter notebooks</font></li>
+					<li>RGui (comes by default with R)</li>
+					<li>Using another "IDE", e.g. Eclipse, Atom</li>
+				</ul><br><br>
+				R can also be run from the command line, e.g. <code>"R.exe CMD BATCH myscript.R"</code> in Windows Command Prompt. Might be necessary if running on a server. 
+				<!--<p class="current-visible fragment" data-fragment-index="0">From the command line, e.g. <code>"R myscript.R"</code> in Windows Command Prompt. Might be necessary if running on a server.</p>-->
+			</section>
+			<section>
+				<h2>Rgui</h2>
+				<img src="images/rgui.png">
+			</section>
+			<section>
+				<h2>Rstudio</h2>
+				<img src="images/rstudio.png">
+			</section><section>
+				<h2>A Jupyter notebook</h2>
+				<img src="images/jupyter.png">
+				You can install Jupyter notebooks by downloading the <a href="https://www.anaconda.com/">Anaconda</a> software package. Then follow <a href="https://docs.anaconda.com/anaconda/navigator/tutorials/r-lang/">these instructions</a> to integrate R.
+			</section>
+			
+		</section>
+
+		<section>
+			<p>We'll shortly discuss some basic syntax and tips for getting started quickly in R. But more important is knowing where to turn and how to make use of resources as you go.</p>
+			<p><a href="https://stackoverflow.com/">stackoverflow.com</a> is your friend!</p>
+			<p>For syntax of a particular function, can use "??" in RStudio, e.g. <code>??readstata13</code>. Online, official PDF documentation will look like:
+			<center><img src="images/readstata13.png"></center>
+			There are many tutorials on the web that cover basic syntax in R. <a href="https://www.anotherbookondatascience.com/chapter1.html">Here</a> is a nice one that presents it side-by-side with Python.
+		</section>
+
+		<section>
+			<h2>Getting started in R</h2>
+			The rest of this tutorial will be displayed as a Jupyter notebook.<br><br>
+			Click <a href="../teaching/Intro to R.html" target="_blank">here</a> to open the notebook as a static webpage.<br><br>
+			If you'd like to download the Jupyter notebook to run it interactively, click <a href="../teaching/Intro to R.ipynb" download>here</a>.
+			<ul>
+				<li>This requires installing Jupyter (e.g. through <a href="https://anaconda.com">Anaconda</a>)</li>
+				<li>Note: Jupyter notebooks can also be run interactively in the cloud through the <a href="https://mybinder.org/">binder</a> project</li>
+			</ul>
+		</section>
+			</div>
+		</div>
+		
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				history: true,
+				dependencies: [
+          { src: 'plugin/anything/anything.js' },
+          { src: 'plugin/mathsvg/math.js' },
+					{ src: 'plugin/chalkboard/chalkboard.js' },
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				],
+				keyboard: {
+						67: function() { RevealChalkboard.toggleNotesCanvas() },	// toggle notes canvas when 'c' is pressed
+						66: function() { RevealChalkboard.toggleChalkboard() },	// toggle chalkboard when 'b' is pressed
+						46: function() { RevealChalkboard.clear() },	// clear chalkboard when 'DEL' is pressed
+						 8: function() { RevealChalkboard.reset() },	// reset chalkboard data on current slide when 'BACKSPACE' is pressed
+						68: function() { RevealChalkboard.download() },	// downlad recorded chalkboard drawing when 'd' is pressed
+				}
+			});
+		</script>
+	</body>
+</html>

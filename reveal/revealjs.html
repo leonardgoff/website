@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+		<link rel="stylesheet" href="metropolis.css">
+
+		<style>
+		li{
+		  margin: 15px 0;
+		}
+		.fragment.current-visible.visible:not(.current-fragment) {
+			display: none;
+			height:0px;
+			line-height: 0px;
+			font-size: 0px;
+		}
+		a:link {
+		  text-decoration: underline;
+		}
+		</style>
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+        <section data-markdown>
+          <textarea data-template>
+            # Using Reveal.js for presentations
+
+            ## Len Goff
+          </textarea>
+        </section>
+		
+		<section>
+			<section>
+				<h2>What is reveal.js?</h2>
+				The standard among academic economists to produce slides for a presentation is to use the "Beamer" document class in LaTex to create slides as a PDF file.<br><br>
+				Fun alternative: <a href="https://revealjs.com/#/">reveal.js</a>, which allows you create presentation slides directly in a webpage.<br><br>
+				Using a static PDF has advantages: namely reliability (you know exactly what the slides will look like, no internet required). Also LaTeX has great packages to generate figures (e.g. <a href="https://www.overleaf.com/learn/latex/TikZ_package">TikZ</a>). <br><br>
+				But reveal.js also offers some nice things, like smooth transitions and expanded interactivity, such as arranging your slides in two dimensions rather than one (press the down key right now!), or drawing on your slides with the mouse (click the pencil icon).
+			</section>
+			<section>
+				<h2>Hello from the basement!<h2>
+				<h3>Press the up arrow key to go back up.
+			</section>
+		</section>
+		
+		<section>
+			<h2>Displaying nice things</h2>
+					Here's some math from LaTeX syntax:
+					$$ w = \frac{MRPL}{1+\epsilon^{-1}} $$
+					Formatting for inline code:
+					  <pre><code data-trim>
+					<section>
+					  <h2>Displaying nice things</h2>
+					  Here's some math:
+					    $$ w = \frac{MRPL}{1+\epsilon^{-1}} $$
+					</section>
+					  </code></pre><br>
+					Press right to reveal something:
+					<center><p class="fragment" data-fragment-index="0"><font color="red">Hi there!</font></p></center>
+					<p class="fragment" data-fragment-index="1">View this page's source code to see syntax for these features.</p>
+		</section>
+		
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				history: true,
+				dependencies: [
+          { src: 'plugin/anything/anything.js' },
+          { src: 'plugin/mathsvg/math.js' },
+					{ src: 'plugin/chalkboard/chalkboard.js' },
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				],
+				keyboard: {
+						67: function() { RevealChalkboard.toggleNotesCanvas() },	// toggle notes canvas when 'c' is pressed
+						66: function() { RevealChalkboard.toggleChalkboard() },	// toggle chalkboard when 'b' is pressed
+						46: function() { RevealChalkboard.clear() },	// clear chalkboard when 'DEL' is pressed
+						 8: function() { RevealChalkboard.reset() },	// reset chalkboard data on current slide when 'BACKSPACE' is pressed
+						68: function() { RevealChalkboard.download() },	// downlad recorded chalkboard drawing when 'd' is pressed
+				}
+			});
+		</script>
+	</body>
+</html>

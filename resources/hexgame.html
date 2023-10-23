@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- <script src="https://cdn.rawgit.com/konvajs/konva/2.0.3/konva.min.js"></script> -->
+  <script src="konva.js"></script>
+  <meta charset="utf-8">
+  <title>Hex Game Web Version</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+<div id="container"></div>
+<script>
+
+function inPiece(x, y, piecedef) {
+	
+	var result = false;
+	for (i = 0; i < 5; i++) { 
+		if (piecedef[i][0] == x && piecedef[i][1] == y) {
+		result = true;
+	}
+}
+return(result);
+}
+
+function drawShape(piecedef, context) {
+
+		context.beginPath();
+		context.moveTo(ss, ss);
+
+		startX = 1;
+		startY = 1;
+		
+		if(inPiece(1,0,piecedef)){
+		  startX = 0;
+		  startY = 1;
+		}
+		
+		currentX = startX;
+		currentY = startY;
+				
+		do {		  
+			if (inPiece(currentX, currentY, piecedef) && !inPiece(currentX, currentY-1, piecedef)) {
+				nextX = currentX + 1;
+				nextY = currentY;
+			} else if (inPiece(currentX, currentY, piecedef) && inPiece(currentX, currentY-1, piecedef) && inPiece(currentX+1, currentY, piecedef) && inPiece(1,0,piecedef)) {
+				nextX = currentX;
+				nextY = currentY - 1;
+			} else if (inPiece(currentX-1, currentY, piecedef)) {
+				nextX = currentX;
+				nextY = currentY + 1;
+			} else if (inPiece(currentX-1, currentY-1, piecedef)) {
+				nextX = currentX - 1;
+				nextY = currentY;
+			} else if (inPiece(currentX, currentY-1, piecedef)) {
+				nextX = currentX;
+				nextY = currentY - 1;
+			}
+			context.lineTo(ss*nextX, ss*nextY);
+			currentX = nextX;
+			currentY = nextY;
+		}
+		while (currentX != startX || currentY != startY);
+		
+		context.closePath();
+		
+		//return context
+}
+
+function checkForSolution() {
+	var isSolution = true;
+
+	var matrixSol = [[],[],[],[],[]];
+	for (myY = 0; myY < 6; myY++) {
+		var tempRow = [];
+			for (myX = 0; myX < 10; myX++) {
+			//Since top left of board is at 1.5,1.5, adding 2,2 will get the midpoint of each square
+			temp = stage.getIntersection({x: (2+myX)*ss, y: (2+myY)*ss}).getId()
+			var tempLetter = "-";
+			if (temp==null){
+				isSolution=false;
+			}
+			else if (temp < 0 | temp > 11){
+				isSolution=false;
+			}
+			else {
+				tempLetter = letters[temp];
+			}
+			tempRow[myX] = tempLetter;
+		}
+		matrixSol[myY] = tempRow;
+	}
+
+	if(isSolution){
+		var r = confirm("Congrats, you got a solution! Would you like to submit it to the database? Press Cancel if no.");
+		if (r == true) {
+			var theNotes = prompt("Please enter any notes (e.g. your name)", "");
+			
+			var theSolution = ""
+			stage.find('Shape').each(function(piece, n) {
+				j = piece.getId();
+				if (j >= 0 & j <= 11){
+					theSolution = theSolution + Math.round(piece.getX()/ss-2).toString()+"-"+Math.round(piece.getY()/ss-2).toString()+"-"+rotations[j];
+					if (j<11){
+						theSolution = theSolution + "--"
+					}
+				}
+			});
+	
+			topLeft = letters[stage.getIntersection({x: (1.5)*ss, y: (1.5)*ss}).getId()];
+			topRight = letters[stage.getIntersection({x: (1.5+10)*ss, y: (1.5)*ss}).getId()];
+			bottomRight = letters[stage.getIntersection({x: (1.5+10)*ss, y: (1.5+6)*ss}).getId()];
+			bottomLeft = letters[stage.getIntersection({x: (1.5)*ss, y: (1.5+6)*ss}).getId()];
+			
+			minLetter = [topLeft,topRight,bottomRight,bottomLeft].sort()[0];
+			
+			if(minLetter==topLeft){
+				var theTitle = topLeft+bottomLeft+bottomRight+topRight;
+			}
+			if(minLetter==topRight){
+				var theTitle = topRight+bottomRight+bottomLeft+topLeft;
+			}
+			if(minLetter==bottomRight){
+				var theTitle = bottomRight+topRight+topLeft+bottomLeft;
+			}
+			if(minLetter==bottomLeft){
+				var theTitle = bottomLeft+topLeft+topRight+bottomRight;
+			}
+	
+			var theURL = ("http://www.columbia.edu/~ltg2111/hexgame.html?solution=")+theSolution;
+			
+			  const data = {"entry.783036693":theNotes,"entry.1496840457":theTitle,"entry.469127169":matrixSol.toString(),"entry.316148630":theSolution,"entry.2023544120":theURL,"entry.636369400":":user-agent"};
+     		  const XHR = new XMLHttpRequest();
+			  let urlEncodedData = "",
+				  urlEncodedDataPairs = [],
+				  name;
+			  for( name in data ) {
+				urlEncodedDataPairs.push( encodeURIComponent( name ) + '=' + encodeURIComponent( data[name] ) );
+			  }
+			  urlEncodedData = urlEncodedDataPairs.join( '&' ).replace( /%20/g, '+' );
+			  XHR.addEventListener( 'load', function(event) {
+				alert( 'Solutions submitted. Thanks!' );
+			  } );
+			  XHR.addEventListener( 'error', function(event) {
+				alert( 'Oops! Something went wrong with submitting this solution.' );
+			  } );
+			  XHR.open( 'POST', 'https://restful-google-form.vercel.app/api/forms/1FAIpQLSfo1DCPt6_675oHA7ZS1TNnVbBPttsGIxEHfhfStLnOe1F9vw' );
+			  XHR.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded' );
+			  XHR.send( urlEncodedData );
+			
+		}
+	}
+}
+
+var width = window.innerWidth;
+var height = window.innerHeight;
+var curPieceColor = "";
+
+var stage = new Konva.Stage({
+	container: 'container',
+	width: width,
+	height: height
+});
+
+var layer = new Konva.Layer();
+
+var npieces = 12;
+
+var piecedefs = [
+[[1, 1],[2, 1],[1, 2],[1, 3],[2, 3]],  // C
+[[1, 1],[1, 2],[2, 2],[3, 2],[4, 2]],  // L
+[[1, 1],[1, 2],[2, 2],[2, 3],[0, 1]],  // W
+[[1, 1],[1, 2],[1, 3],[2, 1],[2, 2]],  // P
+[[1, 1],[1, 2],[2, 2],[2, 3],[3, 2]],  // F
+[[1, 1],[2, 1],[3, 1],[3, 2],[4, 2]],  // N
+[[1, 1],[2, 1],[3, 1],[2, 2],[2, 3]],  // T
+[[1, 1],[2, 1],[3, 1],[3, 2],[3, 3]],  // V
+[[1, 1],[2, 1],[3, 1],[4, 1],[5, 1]],  // I
+[[1, 1],[2, 1],[3, 1],[3, 2],[4, 1]],  // Y
+[[0, 1],[1, 1],[2, 1],[1, 2],[1, 0]],  // X
+[[1, 1],[2, 1],[2, 2],[2, 3],[3, 3]],  // Z
+];
+
+var letters = ["C", "L", "W", "P", "F", "N", "T", "V", "I", "Y", "X", "Z"];
+var text = new Konva.Text({
+      x: 10,
+      y: 10,
+      fontFamily: 'Calibri',
+      fontSize: 24,
+      text: '',
+      fill: 'black'
+    });
+
+var colors = ["red", "orange", "yellow", "green", "blue", "purple", "brown", "teal", "fuchsia", "crimson", "cyan", "white"];
+var ss = 40;
+var rotations = [];
+
+//add game stage
+var rect = new Konva.Rect({
+      x: ss*1.5,
+      y: ss*1.5,
+      width: ss*10,
+      height: ss*6,
+	  draggable: false,
+      stroke: 'black',
+      strokeWidth: 4
+    });
+	
+var gamestage = new Konva.Layer();
+gamestage.add(rect);
+gamestage.add(text);
+stage.add(gamestage)
+
+
+var solutionToShow = window.location.search.replace(/\?solution=/g, "");
+if (solutionToShow != "") {
+	solutionData = solutionToShow.split("--", 12);
+}
+
+for (j = 0; j < npieces; j++) {
+	
+	if(j==0){
+		var piece = new Konva.Shape({sceneFunc: function (context) {drawShape(piecedefs[0], context); context.fillStrokeShape(this);},
+		  id: j,fill: colors[j],stroke: 'black',strokeWidth: 4,draggable: true});
+	}
+	if(j==1){
+		var piece = new Konva.Shape({sceneFunc: function (context) {drawShape(piecedefs[1], context); context.fillStrokeShape(this);},
+		  id: j,fill: colors[j],stroke: 'black',strokeWidth: 4,draggable: true});
+	}
+	if(j==2){
+		var piece = new Konva.Shape({sceneFunc: function (context) {drawShape(piecedefs[2], context); context.fillStrokeShape(this);},
+		  id: j,fill: colors[j],stroke: 'black',strokeWidth: 4,draggable: true});
+	}
+	if(j==3){
+		var piece = new Konva.Shape({sceneFunc: function (context) {drawShape(piecedefs[3], context); context.fillStrokeShape(this);},
+		  id: j,fill: colors[j],stroke: 'black',strokeWidth: 4,draggable: true});
+	}
+	if(j==4){
+		var piece = new Konva.Shape({sceneFunc: function (context) {drawShape(piecedefs[4], context); context.fillStrokeShape(this);},
+		  id: j,fill: colors[j],stroke: 'black',strokeWidth: 4,draggable: true});
+	}
+	if(j==5){
+		var piece = new Konva.Shape({sceneFunc: function (context) {drawShape(piecedefs[5], context); context.fillStrokeShape(this);},
+		  id: j,fill: colors[j],stroke: 'black',strokeWidth: 4,draggable: true});
+	}
+	if(j==6){
+		var piece = new Konva.Shape({sceneFunc: function (context) {drawShape(piecedefs[6], context); context.fillStrokeShape(this);},
+		  id: j,fill: colors[j],stroke: 'black',strokeWidth: 4,draggable: true});
+	}
+	if(j==7){
+		var piece = new Konva.Shape({sceneFunc: function (context) {drawShape(piecedefs[7], context); context.fillStrokeShape(this);},
+		  id: j,fill: colors[j],stroke: 'black',strokeWidth: 4,draggable: true});
+	}
+	if(j==8){
+		var piece = new Konva.Shape({sceneFunc: function (context) {drawShape(piecedefs[8], context); context.fillStrokeShape(this);},
+		  id: j,fill: colors[j],stroke: 'black',strokeWidth: 4,draggable: true});
+	}
+	if(j==9){
+		var piece = new Konva.Shape({sceneFunc: function (context) {drawShape(piecedefs[9], context); context.fillStrokeShape(this);},
+		  id: j,fill: colors[j],stroke: 'black',strokeWidth: 4,draggable: true});
+	}
+	if(j==10){
+		var piece = new Konva.Shape({sceneFunc: function (context) {drawShape(piecedefs[10], context); context.fillStrokeShape(this);},
+		  id: j,fill: colors[j],stroke: 'black',strokeWidth: 4,draggable: true});
+	}
+	if(j==11){
+		var piece = new Konva.Shape({sceneFunc: function (context) {drawShape(piecedefs[11], context); context.fillStrokeShape(this);},
+		  id: j,fill: colors[j],stroke: 'black',strokeWidth: 4,draggable: true});
+	}
+
+	piece.on("dragend", function() {
+		this.x(ss*Math.round(this.x() / ss));
+		this.y(ss*Math.round(this.y() / ss));
+		layer.draw();
+		checkForSolution();
+	});	
+	
+	piece.on("mousedown", function() {
+		curPieceColor = this.fill();
+		this.fill('grey');
+		layer.draw();
+	});
+	
+	piece.on("mouseup", function() {
+		this.fill(curPieceColor);
+		layer.draw();
+	});
+	
+	piece.on("dblclick dbltap", function() {	
+		rotations[this.id()] += 1;
+		if(this.id()==99){
+		    text.setText("Hi Cole!");
+			gamestage.add(text);
+			stage.add(gamestage)
+			layer.draw();
+		}
+		if(rotations[this.id()]==9){rotations[this.id()] = 1;};
+		if(rotations[this.id()]==1){
+			this.scaleX(1);
+		} else if(rotations[this.id()]==5) {
+			this.scaleX(-1);
+			this.rotate(180);
+		} else {
+			this.rotate(90);
+		};
+		this.offsetX(ss*2.5);
+		this.offsetY(ss*2.5);		
+		layer.draw();
+		
+	});
+
+
+	if (solutionToShow != "") {
+
+		var thisSolution = solutionData[j]
+		var thisSolutionArray = thisSolution.split("-", 3);
+		thisRotation = parseInt(thisSolutionArray[2]);
+		
+		for (r = 1; r <= thisRotation; r++) {
+			if(r==1){
+				piece.scaleX(1);
+			} else if(r==5) {
+				piece.scaleX(-1);
+				piece.rotate(180);
+			} else {
+				piece.rotate(90);
+			};
+		}
+		rotations.push(thisRotation);
+		
+		piece.x((parseInt(thisSolutionArray[0])+2)*ss);
+		piece.y((parseInt(thisSolutionArray[1])+2)*ss);
+		
+		piece.offsetX(ss*2.5);
+		piece.offsetY(ss*2.5);	
+
+	} else{
+	
+		//Finalize piece position
+		if(j<7){
+			piece.x(ss*j*2+ss*2.5)
+			piece.y(ss*7+ss*2.5)
+		} else if (j==10){
+			piece.x(ss*14.5)
+			piece.y(ss*(j-5)*1.5)
+		}else {
+			piece.x(ss*13.5)
+			piece.y(ss*(j-5)*1.5)
+		}
+		
+	piece.offsetX(ss*2.5);
+	piece.offsetY(ss*2.5);
+	rotations.push(1)
+	
+	}
+	
+	layer.add(piece);
+}
+
+
+// add the layer to the stage
+stage.add(layer);
+
+</script>
+
+</body>
+</html>

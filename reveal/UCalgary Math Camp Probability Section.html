@@ -52,9 +52,9 @@
 			
 		 <section>
             <center>
-			<b><h1>Probability and Statistics for Economics</b>
-			<h2><br><br>UCalgary Math Camp 2023, Instructor: Len Goff
-            <h2><br><br>Section 1: Probability
+			<b><h1>UCalgary Math Camp: Probability</b>
+			<h2><br><br>Last updated for August 2024
+            <h2><br><br>Len Goff
 			</center>
         </section>
 		
@@ -110,6 +110,7 @@
 			- Other useful references:
 				- Casella \& Berger, *Statistical Inference*
 				- Hansen, *Econometrics*: https://www.ssc.wisc.edu/~bhansen/econometrics/
+				- For background on probability theory: Rosenthal, *A First Look at Rigorous Probability Theory*
 		  </textarea>
 		</section>
 		
@@ -160,7 +161,7 @@
 		  <textarea data-template>
 			## What is an event?
 			---
-			Start with a set of possible <span style="color:blue">outcomes</span>
+			Start with a set of possible <span style="color:orange">outcomes</span>, called the <span style="color:blue">sample space</span> $\Omega$
 			<center><img src="images/diesides.png" class="plain" align="center" width="45%"></center>
 			
 			<span style="color:green">Events</span> are just sets of outcomes, for example:
@@ -184,7 +185,7 @@
 		  <textarea data-template>
 			## Enumerating all of the possible events
 			---
-			Begin with a set <span style="color:blue">$\Omega$</span> of mutually-exclusive <span style="color:blue">outcomes</span>:
+			Begin with the sample space <span style="color:blue">$\Omega$</span> of mutually-exclusive outcomes:
 			<center><img src="images/diesides.png" class="plain" align="center"></center>
 			$\color{blue}{\Omega} = \{1,2,3,4,5,6\}$
 			
@@ -200,24 +201,26 @@
 		  <textarea data-template>
 			## Associating probabilites with events: discrete case
 			---
-			When rolling a so-called "fair-die", each outcome $\omega \in \color{blue}{\Omega}$ has an equal probability: $P(\omega) = \color{orange}{1/6}$. To get the probability of an event $\color{green}{A}$, simply add this for each $\omega \in \color{green}{A}$.
+			When rolling a so-called "fair-die", each individual outcome $\color{blue}{\omega} \in \Omega$ has an equal probability: $P(\omega) = \color{orange}{1/6}$.
+
+			To get the probability of an event $\color{green}{A}$, simply add this for each $\color{blue}{\omega} \in \color{green}{A}$.
 			<center>
 			<div>
 			$\color{green}{A}$=
 			<img style="vertical-align:middle" src="images/diesides3.png" class="plain" width="40%">
-			<span class="fragment" data-fragment-index="1">$,\quad P(\color{green}{A})= \color{orange}{1/6}*1 = 1/6 $</span>
+			<span class="fragment" data-fragment-index="1">$,\quad P(\color{green}{A})= \color{orange}{1/6} \times 1 = 1/6 $</span>
 			</div>
 
 			<div class="fragment" data-fragment-index="2">
 			$\color{green}{A}$=
 			<img style="vertical-align:middle" src="images/diesideseven.png" class="plain" width="40%">
-			<span class="fragment" data-fragment-index="3">$,\quad P(\color{green}{A})= \color{orange}{1/6}*3 = 1/2$</span>
+			<span class="fragment" data-fragment-index="3">$,\quad P(\color{green}{A})= \color{orange}{1/6} \times 3 = 1/2$</span>
 			</div>
 			
 			<div class="fragment" data-fragment-index="4">
 			$\color{green}{A}$=
 			<img style="vertical-align:middle" src="images/diesidesall.png" class="plain" width="40%">
-			<span class="fragment" data-fragment-index="5">$,\quad P(\color{green}{A})= \color{orange}{1/6}*6 = 1 \hspace{.6cm}$</span>
+			<span class="fragment" data-fragment-index="5">$,\quad P(\color{green}{A})= \color{orange}{1/6} \times 6 = 1 \hspace{.6cm}$</span>
 			</div>
 			
 			</center>
@@ -227,11 +230,11 @@
 		<section data-markdown data-transition="none">
 		  <textarea data-template>
 			## Associating probabilites with events: continuous case
-			- Now imagine an outcome space <span style="color:blue">$\Omega$</span> that consists of any real number between 0 and 1
+			- Now imagine a sample space <span style="color:blue">$\Omega$</span> that consists of any real number between 0 and 1
 			
 			<center><img style="vertical-align:middle" src="images/unitinterval.png" class="plain" width="30%"></center>
 			
-			- e.g. throwing a dart at a 1D target
+			- e.g. throwing a dart at a one-dimensional target
 			- Suppose we want to construct a probability function $P$ that puts equal probability on each such number in $[0,1]$
 			- Under such a distribution, what is the probability associated with a *single* point, e.g. $P(\\{0.3\\})$? <span class="fragment" data-fragment-index="2" style="color:red">$\quad 0!$</span>
 			<br><br><div class="fragment" data-fragment-index="3" style="font-size:0.9em;color:red"><center>But now we have a puzzle: if $P(\\{x\\}) = 0$ for each $x \in [0,1]$, how can we have $P([0,1]) = 1$?</center></div>
@@ -278,7 +281,7 @@
 
 			<section data-markdown data-transition="none">
 				<textarea data-template>
-				## More sets
+				## More on sets
 				- We say that $A \subseteq B$ when all elements in $B$ are also in $A$, e.g. $\\{1,2\\} \subseteq \\{1,2,3\\}$
 				- When $A$ is a singleton, we use the notation $A \in B$, e.g. $\\{3\\} \in \\{1,2,3\\}$
 				- When $A \subseteq B$ and $B$ contains at least one element that isn't in $A$, then we say $A \subset B$, e.g. $\\{1,2\\} \subseteq \\{1,2\\}$ but $\\{1,2\\} \subset \\{1,2,3\\}$
@@ -293,7 +296,7 @@
 		  <textarea data-template>
 			## What is a $\sigma$*-algebra*?
 			Recall, $\color{gray}{F}$ is a collection of the subsets of $\color{blue}{\Omega}$. But doesn't need to include all of them.<br><br>
-			The elements $\color{green}{A} \in \color{gray}{F}$ are referred to as *measurable sets* or "events". These are the sets to which we associate probabilities $\color{orange}{P}(\color{green}{A})$.
+			The elements $\color{green}{A} \in \color{gray}{F}$ are referred to as *measurable sets* or "events". These are the only sets to which we associate probabilities $\color{orange}{P}(\color{green}{A})$.
 
 			**Definition:** To be a $\mathbf{\sigma}$**-algebra**, $F$ must satisfy the following properties:
 			- $\color{blue}{\Omega}$ is contained in $\color{gray}{F}$
@@ -318,13 +321,12 @@
 			  <textarea data-template>
 				## Why is the notion of a $\sigma-algebra$ necessary?
 				- Keeping some of the subsets of $\color{blue}{\Omega}$ out of $\color{gray}{F}$ avoids technical complications that can arise when $\color{blue}{\Omega}$ is uncountably infinite.
-				- For example, it can be proven that there exists no function *all* $\color{orange}{P}$ defined on all subsets $\color{green}{A} \subseteq [0,1]$ satisfying the the following properties:
-					- $\color{orange}{P}\left(\color{green}{[a,b]}\right) = \color{orange}{P}\left(\color{green}{[a,b)}\right) = \color{orange}{P}\left(\color{green}{(a,b]}\right) = \color{orange}{P}\left(\color{green}{(a,b)}\right)$
-					- Translational invariance: $\color{orange}{P}\left(\color{green}{A}\right) = \color{orange}{P}\left(\color{green}{A \bigoplus r}\right)$ for all $r$, where $\color{green}{A \bigoplus r}$ shifts each element of $\color{green}{A}$ by $r$ (wrapping around if needed)
-				- Implication: there are certain subsets $\color{green}{A} \subseteq [0,1]$ for which $\color{orange}{P}\left(\color{green}{A}\right)$ cannot be defined, if we want the uniform distribution to be a possibility.
-				- In practice, understanding these technicalities usually isn't important in econometrics. But, this is why we need the concept of a $\sigma$-algebra.
-				
-				(Press down arrow for sketch of proof)
+				- For example, it can be proven that there exists no function $\color{orange}{P}$ defined on *all* subsets $\color{green}{A} \subseteq [0,1]$ satisfying both of the following properties in addition to countable additivity (press down for a sketch of the proof):
+					- $\color{orange}{P}\left(\color{green}{[a,b]}\right) = \color{orange}{P}\left(\color{green}{[a,b)}\right) = \color{orange}{P}\left(\color{green}{(a,b]}\right) = \color{orange}{P}\left(\color{green}{(a,b)}\right)=b-a$
+					- Translational invariance: $\color{orange}{P}\left(\color{green}{A}\right) = \color{orange}{P}\left(\color{green}{A \bigoplus r}\right)$ for all $r$, where $\color{green}{A \bigoplus r}$ increases each element of $\color{green}{A}$ by $r$ (wrapping around if needed)
+				- Both of the above are properties we'd expect of the uniform distribution on $[0,1]$. Therefore, to define the uniform distribution we must leave $\color{orange}{P}\left(\color{green}{A}\right)$ undefined for some events $\color{green}{A} \subseteq [0,1]$.
+					- The events $\color{green}{A}$ that we take out are given the name *non-measurable sets*. 
+				- This is why we need the concept of a $\sigma$-algebra. Buit in practice, understanding these technicalities usually isn't important in practical uses of econometrics.
 			  </textarea>
 			</section>
 			<section data-markdown data-transition="none">
@@ -577,7 +579,7 @@
 			## Statistical independence
 			**Definition:** we call two events $\color{green}{A}$ and $\color{green}{B}$ statistically **independent** when $$P(\color{green}{A} \textrm{ and } \color{green}{B}) = P(\color{green}{A})\cdot P(\color{green}{B})$$<br>
 			Notation: you might see $P(A \textrm{ and } B)$ denoted as $P(A \cap B)$ or simply $P(A, B)$. <br><br>
-			Extension: a collection of events $A_1 \dots A_n$ are independent if $$P(A_1 \cap A_2 \cap \dots \cap A_n) = \prod_{j=1}^n P(A_j)$$
+			*Extension:* a collection of events $A_1 \dots A_n$ are independent if $$P(A_1 \cap A_2 \cap \dots \cap A_n) = \prod_{j=1}^n P(A_j)$$
 		 </textarea>
 		</section>
 		
@@ -585,11 +587,11 @@
 		  <textarea data-template>
 			## Conditional probabilities
 			Let $\color{purple}{B}$ be an event such that $P(\color{purple}{B})>0$.<br><br>
-			**Definition:** the **conditional probability** of  $\color{green}{A}$ given $\color{purple}{B}$ is $$P(\color{green}{A}|\color{purple}{B}) = \frac{P(\color{green}{A} \textrm{ and } \color{purple}{B})}{P(\color{purple}{B})}$$
+			**Definition:** the **conditional probability** of  $\color{green}{A}$ given $\color{purple}{B}$ is $$P(\color{green}{A}|\color{purple}{B}) = \frac{P(\color{green}{A} \textrm{ and } \color{purple}{B})}{P(\color{purple}{B})}$$ This definition is call *Bayes' Rule*.
 			- Meaning: What is the probability of $A$ if we know that event $B$ occurs?<br>
 			- In math: defines a *new* probability space in which $B$ is the whole sample space. $P(A|B)$ is the probability of event A in this new probability space.			
 			- If A and B are independent, then $P(A|B) = P(A)$ and $P(B|A) = P(B)$			
-			- Extension: the conditional probability of $A$ given $B \textrm{ and } C$ is $P(A|B \textrm{ and } C) = \frac{P(A \textrm{ and } B \textrm{ and } C)}{P(B \textrm{ and } C)}$. In general, this definition is call *Bayes' Rule*.
+			- *Extension:* conditioning on B *and* C. $P(A|B \textrm{ and } C) = \frac{P(A \textrm{ and } B \textrm{ and } C)}{P(B \textrm{ and } C)}$.
 			
 		 </textarea>
 		</section>
@@ -603,9 +605,9 @@
 			## Random variables
 			Sets are nice, but numbers are way easier to deal with!
 			
-			**Definition**: Given a probability space $(\Omega, F, P)$, a **random variable** is a function $X: \color{blue}{\Omega} \rightarrow \mathbb{R}$.
+			**Definition**: Given a probability space $(\color{blue}{\Omega}, \color{gray}{F}, \color{orange}{P})$, a **random variable** is a function $X: \color{blue}{\Omega} \rightarrow \mathbb{R}$.
 			
-			Random variables associate a *number* to each outcome $\omega$ in the sample space $\Omega$.
+			Random variables associate a *number* to each outcome $\color{blue}{\omega}$ in the sample space $\color{blue}{\Omega}$.
 			
 			Examples: 
 			
@@ -619,18 +621,19 @@
 		<section data-markdown data-transition="none">
 		  <textarea data-template>
 			## Random variables induce a new probability $P_X$
-			Let $X$ be a random variable on probability space $(\Omega, F, P)$. Let $\mathcal{X}$ be the range of $X$ on $\Omega$. Then for any $A \subseteq \mathcal{X}$ define:
-			$$P_X(X \in A) := P(\\{\omega: X(\omega) \in A\\})$$			
-			Technically, this gives us a new probability space: $(\mathbb{R}, \mathcal{B}, P_X)$, where $\mathcal{B}$ is the so-called "Borel" $\sigma$-algebra on the real numbers.
+			Let $X$ be a random variable on probability space $(\color{blue}{\Omega}, \color{gray}{F}, \color{orange}{P})$. Let $\mathcal{X} \subseteq \mathbb{R}$ be the range of $X$ on $\Omega$. Then for any $A \subseteq \mathcal{X}$ define:
+			$$P_X(X \in A) := \color{orange}{P}(\\{\color{blue}{\omega}: X(\color{blue}{\omega}) \in A\\})$$			
+			Technically, this gives us a new probability space: $(\color{blue}{\mathbb{R}}, \color{gray}{\mathcal{B}}, \color{orange}{P_X})$, where $\mathcal{B}$ is the so-called "Borel" $\sigma$-algebra on the real numbers.
 			<br><br>We'll typically denote individual elements of $\mathcal{X}$ by lower-case $x$. These correspond to singleton sets $A$, so: $P_X(X = x) := P(\\{\omega: X(\omega) =x\\})$.
-			<br><br>We'll often let the $X$ in $P_X$ be implicit, e.g. $P(X \le 16)$ or $P(X=4)$. But keep in mind that there is an underlying probability space $(\Omega, F, P)$ in the background.
+			<br><br>We'll often let the $X$ in $P_X$ be implicit, e.g. $P(X \le 16)$ or $P(X=4)$.
+			<br><br>Technically, there is an underlying probability space $(\color{blue}{\Omega}, \color{gray}{F}, \color{orange}{P})$ lurking in the background, but for practical purposes we can work with random variables directly.
 		</textarea>
 		</section>
 		
 		<section data-markdown data-transition="none">
 		  <textarea data-template>
 			## Example: years of education
-			Suppose $X(\omega)$ indicates the number of years of schooling for various individuals
+			Suppose $X(\omega)$ indicates the number of years of schooling for various individuals $\omega$
 			<center><img src = "images/team2.png" class="plain" align="center" width = 38% align="center"></center>
 		</textarea>
 		</section>
@@ -638,7 +641,7 @@
 		<section data-markdown data-transition="none">
 			 <textarea data-template>
 			 ## Distribution functions
-			 Suppose we have a random variable $X$. Is there a succinct way to characterize the function $P(\cdot)$?
+			 Suppose we have a random variable $X$ and $P=P_X$. So far we've defined $P(\cdot)$ as a function of *sets* A. Ugh. Is there a more succinct way to characterize $P$?
 			 
 			 Yes! We can do so through the *cumulative distribution function* (CDF).
 			 

@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="reveal/css/reset.css">
+		<link rel="stylesheet" href="reveal/css/reveal.css">
+		<link rel="stylesheet" href="reveal/css/theme/black.css">
+		<link rel="stylesheet" href="reveal/metropolis.css">
+
+		<style>
+		li{
+		  margin: 15px 0;
+		}
+		.fragment.current-visible.visible:not(.current-fragment) {
+			display: none;
+			height:0px;
+			line-height: 0px;
+			font-size: 0px;
+		}
+		a:link {
+		  text-decoration: underline;
+		}
+		@media print {
+			.slide-background {
+				background-color: #ffffff !important;
+				-webkit-print-color-adjust: exact; 
+			}
+		}
+		</style>
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="reveal/lib/css/monokai.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal/css/print/pdf.css' : 'reveal/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+			Reveal.configure({ pdfSeparateFragments: false });
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+			
+		 <section>
+            <center>
+			<b><h1>Introduction to Econometrics</b>
+			<h2><br><br>UGA ECON4750/6750, Instructor: Len Goff
+            <h2><br><br>Illustration of univariate regression
+			<h3><br><br>Updated February 7th, 2022
+			</center>
+        </section>
+		
+		<section data-transition="none">
+		 	<img src = "images/density.png" class="plain" align="center" width=90%>
+		</section>
+		
+		<section data-transition="none">
+		 	<img src = "images/densitywithline.png" class="plain" align="center" width=90%>
+		</section>
+		
+		<section data-transition="none">
+		 	<img src = "images/animate.gif" class="plain" align="center" width=90%>
+		</section>
+
+		<section data-transition="none">
+		 	<img src = "images/justdata.png" class="plain" align="center" width=90%>
+		</section>
+		
+		<section data-transition="none">
+		 	<img src = "images/justdatawithtruth.png" class="plain" align="center" width=90%>
+		</section>
+		
+		<section data-transition="none">
+		 	<img src = "images/datawithols.png" class="plain" align="center" width=90%>
+		</section>
+	
+		<section data-transition="none">
+		 	<img src = "images/datawitholsandtruth.png" class="plain" align="center" width=90%>
+		</section>
+	
+		
+		<script src="reveal/js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+		Reveal.initialize({
+		// The "normal" size of the presentation, aspect ratio will
+			  // be preserved when the presentation is scaled to fit different
+			  // resolutions. Can be specified using percentage units.
+			  width: 1224,
+			  height: 764,
+
+			  // Factor of the display size that should remain empty around
+			  // the content
+			  margin: 0.04,
+
+			  // Bounds for smallest/largest possible scale to apply to content
+			  minScale: 0.2,
+			  maxScale: 2.0,
+				history: true,
+				dependencies: [
+					{ src: 'reveal/plugin/anything/anything.js' },
+					{ src: 'reveal/plugin/mathsvg/math.js' },
+					{ src: 'reveal/plugin/chalkboard/chalkboard.js' },
+					{ src: 'reveal/plugin/mouse-pointer/mouse-pointer.js', async: true }, 
+					{ src: 'reveal/plugin/markdown/marked.js' },
+					{ src: 'reveal/plugin/markdown/markdown.js' },
+					{ src: 'reveal/plugin/notes/notes.js', async: true },
+					{ src: 'reveal/plugin/highlight/highlight.js', async: true }
+				],
+				keyboard: {
+						67: function() { RevealChalkboard.toggleNotesCanvas() },	// toggle notes canvas when 'c' is pressed
+						66: function() { RevealChalkboard.toggleChalkboard() },	// toggle chalkboard when 'b' is pressed
+						46: function() { RevealChalkboard.clear() },	// clear chalkboard when 'DEL' is pressed
+						 8: function() { RevealChalkboard.reset() },	// reset chalkboard data on current slide when 'BACKSPACE' is pressed
+						68: function() { RevealChalkboard.download() },	// downlad recorded chalkboard drawing when 'd' is pressed
+				},
+				chalkboard: {
+					theme: "whiteboard"
+				}
+			});
+			
+			document.addEventListener('contextmenu', handleClick);
+			docment.addEventListener('touchstart', process_touchstart, false);
+
+			function process_touchstart(ev) {
+			  // Use the event's data to call out to the appropriate gesture handlers
+			  switch (ev.touches.length) {
+				case 2: RevealChalkboard.clear();  break;
+			  }
+			}
+
+			function handleClick(e) {
+				RevealChalkboard.clear(); 
+			}
+		</script>
+	</body>
+</html>
